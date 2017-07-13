@@ -31,6 +31,17 @@ class ProyectoTrabajador
      */
     private $rut_trabajador;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="id_proyecto", type="string")
+     * One ProyectoTrabajador has One Proyecto
+     * @ORM\OneToOne(targetEntity="Proyecto")
+     * @ORM\JoinColumn(name="id_proyecto", referencedColumnName="id")
+     */
+    private $id_proyecto;
+
     /**
      * @return string
      */
@@ -47,15 +58,6 @@ class ProyectoTrabajador
         $this->rut_trabajador = $rut_trabajador;
     }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="id_proyecto", type="string")
-     * One ProyectoTrabajador has One Proyecto
-     * @ORM\OneToOne(targetEntity="Proyecto")
-     * @ORM\JoinColumn(name="id_proyecto", referencedColumnName="id")
-     */
-    private $id_proyecto;
 
     /**
      * Get id
@@ -66,5 +68,14 @@ class ProyectoTrabajador
     {
         return $this->id;
     }
+
+    /**
+     * @return string
+     */
+    public function getIdProyecto(): string
+    {
+        return $this->id_proyecto;
+    }
+
 }
 

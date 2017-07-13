@@ -59,6 +59,13 @@ class Proyecto
     private $rut_representante;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="estado", type="string", length=255, nullable=true)
+     */
+    private $estado;
+
+    /**
      * @return mixed
      */
     public function getRutRepresentante()
@@ -163,6 +170,22 @@ class Proyecto
     }
 
     /**
+     * @return string
+     */
+    public function getEstado(): string
+    {
+        return $this->estado;
+    }
+
+    /**
+     * @param string $estado
+     */
+    public function setEstado(string $estado)
+    {
+        $this->estado = $estado;
+    }
+
+    /**
      * Get nombre
      *
      * @return string
@@ -171,5 +194,6 @@ class Proyecto
     {
         return $this->nombre;
     }
+
 }
 
