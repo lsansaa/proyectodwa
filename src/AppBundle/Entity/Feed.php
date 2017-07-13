@@ -49,6 +49,14 @@ class Feed
     private $id_archivo;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime")
+     *
+     */
+    private $fecha;
+
+    /**
      * Get id
      *
      * @return int
@@ -104,6 +112,22 @@ class Feed
     public function setIdArchivo(string $id_archivo)
     {
         $this->id_archivo = $id_archivo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /* @ORM\PrePersist
+    */
+
+    public function onPrePersist()
+    {
+        $this->fecha = new \DateTime("now");
     }
 
 
