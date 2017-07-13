@@ -9,18 +9,21 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class ProjectController{
+class ProjectController extends Controller {
 
     /**
-     * @Route("/agregarproyecto")
+     * @Route("/nuevoproyecto")
      */
-    public function agregarProyecto(){
+    public function nuevoProyecto(){
 
-        return new Response('<html><head><title>Agregar proyecto</title></head><body><h1>Agregar proyecto</h1></body></html>');
+        return $this->render('default/nuevoproyecto.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
 
     }
 

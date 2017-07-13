@@ -9,17 +9,20 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-class UserController{
+class UserController extends Controller {
 
     /**
      * @Route("/registro")
      */
     public function registroUsuario(){
 
-        return new Response('<html><head><title>Registro de usuarios</title></head><body><h1>Registro de usuarios</h1></body></html>');
+        return $this->render('default/nuevousuario.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
 
     }
 
@@ -28,7 +31,9 @@ class UserController{
      */
     public function loginUsuario(){
 
-        return new Response('<html><head><title>Ingreso de usuarios</title></head><body><h1>Ingreso de usuarios</h1></body></html>');
+        return $this->render('default/login.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
 
     }
 
