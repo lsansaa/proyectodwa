@@ -30,23 +30,24 @@ class Persona
     /**
      * @var string
      *
-     * @ORM\Column(name="apellido_p", type="string", length=255, nullable=true)
+     * @ORM\Column(name="apellido_paterno", type="string", length=255, nullable=true)
      */
-    private $apellido_p;
+    private $apellido_paterno;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="apellido_m", type="string", length=255, nullable=true)
+     * @ORM\Column(name="apellido_materno", type="string", length=255, nullable=true)
      */
-    private $apellido_m;
+    private $apellido_materno;
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
-    /**
+    /**TODO: usar encoder con bcrypt y agregar trigger
+     *
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
@@ -56,17 +57,17 @@ class Persona
     /**
      * @return string
      */
-    public function getApellidoM(): string
+    public function getApellidoMaterno(): string
     {
-        return $this->apellido_m;
+        return $this->apellido_materno;
     }
 
     /**
-     * @param string $apellido_m
+     * @param string $apellido_materno
      */
-    public function setApellidoM(string $apellido_m)
+    public function setApellidoMaterno(string $apellido_materno)
     {
-        $this->apellido_m = $apellido_m;
+        $this->apellido_materno = $apellido_materno;
     }
 
     /**
@@ -114,17 +115,17 @@ class Persona
     /**
      * @return string
      */
-    public function getApellidoP(): string
+    public function getApellidoPaterno(): string
     {
-        return $this->apellido_p;
+        return $this->apellido_paterno;
     }
 
     /**
-     * @param string $apellido_p
+     * @param string $apellido_paterno
      */
-    public function setApellidoP(string $apellido_p)
+    public function setApellidoPaterno(string $apellido_paterno)
     {
-        $this->apellido_p = $apellido_p;
+        $this->apellido_paterno = $apellido_paterno;
     }
 
     /**
