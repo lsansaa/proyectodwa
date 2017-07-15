@@ -4,8 +4,18 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
+        our_db_provider:
+                    entity:
+                      class: AppBundle\Entity\Persona
         in_memory:
-            memory: ~
+                    memory:
+                      users:
+                        admin:
+                            password: breakfree
+                            roles: 'ROLE_USER'
+                        luis:
+                            password: control
+                            roles: 'ROLE_ADMIN'
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,11 +24,13 @@ security:
             security: false
 
         main:
+            pattern: ^/
             anonymous: ~
-            # activate different ways to authenticate
+            http_basic: ~
+            provider: our_db_provider
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
+    access_control:
+        - {path: ^/admin, roles: ROLE_ADMIN}
 
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+    encoders:
+      AppBundle\Entity\Persona: bcrypt
