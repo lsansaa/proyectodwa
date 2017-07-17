@@ -16,7 +16,7 @@ class Persona implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var string
-     * @ORM\Column(name="rut", type="string")
+     * @ORM\Column(name="rut", type="string", unique=true)
      * @Assert\NotBlank()
      * @ORM\Id
      */
@@ -221,21 +221,29 @@ class Persona implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * @param isActive $isActive
+     * @param boolean $isActive
      */
     public function setIsActive(bool $isActive)
     {
         $this->isActive = $isActive;
     }
 
-
-    /* @ORM\PrePersist
+    /**
+     * @return string $rut
      */
-
-    public function onPrePersist()
+    public function getId()
     {
-        $this->isActive = true;
+        return $this->rut;
     }
+
+    /**
+     * @return string $rut
+     */
+    public function getUsername()
+    {
+        return $this->rut;
+    }
+
 
     public function serialize()
     {
@@ -268,7 +276,7 @@ class Persona implements AdvancedUserInterface, \Serializable
 
     public function getRoles()
     {
-        return $this->getRol();
+        return array($this->getRol());
     }
 
     public function getSalt()
@@ -276,11 +284,6 @@ class Persona implements AdvancedUserInterface, \Serializable
         /** No needed
          */
         return null;
-    }
-
-    public function getUsername()
-    {
-        return $this->nombre;
     }
 
     public function eraseCredentials()

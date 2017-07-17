@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UserController extends Controller {
 
@@ -30,17 +31,8 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/login")
-     */
-    public function loginUsuario(){
-
-        return $this->render('default/login.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
-
-    }
-    /**
      * @Route("/register", name="user_registration")
+     *
      */
     public function registrarUsuario(Request $request,UserPasswordEncoderInterface $encoder){
 

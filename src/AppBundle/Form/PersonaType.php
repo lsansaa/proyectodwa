@@ -10,14 +10,14 @@ namespace AppBundle\Form;
 
 
 use AppBundle\Entity\Persona;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\AbstractType;
 
 class PersonaType extends AbstractType
 {
@@ -27,7 +27,13 @@ class PersonaType extends AbstractType
             ->add('nombre', TextType::class)
             ->add('apellido_paterno', TextType::class)
             ->add('apellido_materno', TextType::class)
-            ->add('rol', TextType::class)
+            ->add('rol', ChoiceType::class, array(
+                'choices'=> array(
+                    'Seleccione un tipo de usuario' => null,
+                    'Administrador' => 'ROLE_ADMIN',
+                    'Usuario' => 'ROLE_USER'
+                )
+            ))
             ->add('email', EmailType::class)
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,

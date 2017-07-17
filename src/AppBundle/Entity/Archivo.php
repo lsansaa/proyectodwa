@@ -36,9 +36,9 @@ class Archivo
     private $tipo;
 
     /**
-     * @var string
+     * @var blob
      *
-     * @ORM\Column(name="datos", type="string", length=255, nullable=true)
+     * @ORM\Column(name="datos", type="blob", length=255, nullable=true)
      */
     private $datos;
 
