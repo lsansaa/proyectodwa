@@ -8,6 +8,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Proyecto;
+use AppBundle\Form\ProyectoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,28 +23,29 @@ class ProjectController extends Controller {
      */
     public function nuevoProyecto(){
 
-        return $this->render('default/nuevoproyecto.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        $proyecto = new Proyecto();
+        $form = $this->createForm(ProyectoType::class , $proyecto);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            //Agregar codigo para persistir
+
+        }
+
+        return $this->render('default/nuevoproyecto.html.twig', array(
+            'form' => $form->createView(),
+        ));
 
     }
 
     /**
-     * @Route("/eliminarproyecto")
+     * @Route("/proyectos")
      */
-    public function eliminarProyecto(){
+    public function proyectos(){
 
-        return new Response('<html><head><title>Eliminar proyecto</title></head><body><h1>Eliminar proyecto</h1></body></html>');
+        return $this->render('default/proyectos.html.twig');
 
     }
 
-    /**
-     * @Route("/modificarproyecto")
-     */
-    public function modificarProyecto(){
-
-        return new Response('<html><head><title>Modificar proyecto</title></head><body><h1>Modificar proyecto</h1></body></html>');
-
-    }
 
 }
