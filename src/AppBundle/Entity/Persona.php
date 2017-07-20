@@ -76,7 +76,7 @@ class Persona implements AdvancedUserInterface, \Serializable
     /**
      * @param string $rol
      */
-    public function setRol(string $rol)
+    public function setRol ($rol)
     {
         $this->rol = $rol;
     }
@@ -94,7 +94,7 @@ class Persona implements AdvancedUserInterface, \Serializable
     /**
      * @param string $apellido_materno
      */
-    public function setApellidoMaterno(string $apellido_materno)
+    public function setApellidoMaterno($apellido_materno)
     {
         $this->apellido_materno = $apellido_materno;
     }
@@ -110,7 +110,7 @@ class Persona implements AdvancedUserInterface, \Serializable
     /**
      * @param string $email
      */
-    public function setEmail(string $email)
+    public function setEmail($email)
     {
         $this->email = $email;
     }
@@ -139,7 +139,7 @@ class Persona implements AdvancedUserInterface, \Serializable
     /**
      * @param string $password
      */
-    public function setPassword(string $password)
+    public function setPassword($password)
     {
         $this->password = $password;
     }
@@ -157,7 +157,7 @@ class Persona implements AdvancedUserInterface, \Serializable
     /**
      * @param string $rut
      */
-    public function setRut(string $rut)
+    public function setRut($rut)
     {
         $this->rut = $rut;
     }
@@ -175,7 +175,7 @@ class Persona implements AdvancedUserInterface, \Serializable
     /**
      * @param string $apellido_paterno
      */
-    public function setApellidoPaterno(string $apellido_paterno)
+    public function setApellidoPaterno($apellido_paterno)
     {
         $this->apellido_paterno = $apellido_paterno;
     }
@@ -223,7 +223,7 @@ class Persona implements AdvancedUserInterface, \Serializable
     /**
      * @param boolean $isActive
      */
-    public function setIsActive(bool $isActive)
+    public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
     }
@@ -247,7 +247,7 @@ class Persona implements AdvancedUserInterface, \Serializable
 
     public function serialize()
     {
-        return $this->serialize(array(
+        return serialize(array(
             $this->rut,
             $this->password,
             $this->apellido_materno,
@@ -271,12 +271,12 @@ class Persona implements AdvancedUserInterface, \Serializable
             $this->isActive,
             $this->rol,
             $this->nombre
-        )=$this->unserialize($serialized);
+        )= unserialize($serialized);
     }
 
     public function getRoles()
     {
-        return array($this->getRol());
+        return array($this->rol);
     }
 
     public function getSalt()

@@ -24,7 +24,6 @@ class PersonaRepository extends EntityRepository implements UserLoaderInterface
             ->createQueryBuilder('u')
             ->where('u.rut = :rut')
             ->setParameter('rut', $username)
-            ->setParameter('rut', $username)
             ->getQuery()
         ;
 
