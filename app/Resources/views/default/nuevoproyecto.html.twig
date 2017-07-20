@@ -1,7 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {%  block body %}
-    <h1>Nuevo proyecto</h1>
+
+    <div class="container">
+        <div class="main-login main-center">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h1>Nuevo proyecto</h1>
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_start(form) }}
+                {{ form_row(form.nombre) }}
+                {{ form_row(form.fecha_inicio) }}
+                {{ form_row(form.fecha_termino) }}
+                {{ form_row(form.rut_director) }}
+                {{ form_row(form.rut_representante) }}
+                <button type="submit" class="btn btn-primary ">Registrar</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
-
-

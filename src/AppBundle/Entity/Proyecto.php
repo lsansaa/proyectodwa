@@ -26,14 +26,14 @@ class Proyecto
      *
      * @ORM\Column(name="fechainicio", type="datetime")
      */
-    private $fechainicio;
+    private $fecha_inicio;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechatermino", type="datetime")
      */
-    private $fechatermino;
+    private $fecha_termino;
 
     /**
      * @var string
@@ -44,17 +44,17 @@ class Proyecto
 
     /**
      * @var string
-     *One Proyecto has One Director
-     * @ORM\OneToOne(targetEntity="Director")
-     * @ORM\JoinColumn(name="rut_director", referencedColumnName="rut_persona")
+     *Many Proyecto has One Director
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumn(name="rut_director", referencedColumnName="rut")
      */
 
     private $rut_director;
 
     /**
-     *One Proyecto has One RepresentanteLegal
-     * @ORM\OneToOne(targetEntity="RepresentanteLegal")
-     * @ORM\JoinColumn(name="rut_representante", referencedColumnName="rut_persona")
+     *Many Proyecto has One RepresentanteLegal
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumn(name="rut_representante", referencedColumnName="rut")
      */
     private $rut_representante;
 
@@ -116,7 +116,7 @@ class Proyecto
      */
     public function setFechainicio($fechainicio)
     {
-        $this->fechainicio = $fechainicio;
+        $this->fecha_inicio = $fechainicio;
 
         return $this;
     }
@@ -128,7 +128,7 @@ class Proyecto
      */
     public function getFechainicio()
     {
-        return $this->fechainicio;
+        return $this->fecha_inicio;
     }
 
     /**
@@ -140,7 +140,7 @@ class Proyecto
      */
     public function setFechatermino($fechatermino)
     {
-        $this->fechatermino = $fechatermino;
+        $this->fecha_termino = $fechatermino;
 
         return $this;
     }
@@ -152,7 +152,7 @@ class Proyecto
      */
     public function getFechatermino()
     {
-        return $this->fechatermino;
+        return $this->fecha_termino;
     }
 
     /**

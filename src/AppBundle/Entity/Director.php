@@ -33,5 +33,13 @@ class Director
     {
         return $this->rut_persona;
     }
+
+    /**
+     * @param string $rut
+     */
+    public function setRut(string $rut)
+    {
+        $this->rut_persona = $rut;
+    }
 }
 
