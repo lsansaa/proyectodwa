@@ -44,17 +44,17 @@ class Proyecto
 
     /**
      * @var string
-     *One Proyecto has One Director
-     * @ORM\OneToOne(targetEntity="Director")
-     * @ORM\JoinColumn(name="rut_director", referencedColumnName="rut_persona")
+     *Many Proyecto has One Director
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumn(name="rut_director", referencedColumnName="rut")
      */
 
     private $rut_director;
 
     /**
-     *One Proyecto has One RepresentanteLegal
-     * @ORM\OneToOne(targetEntity="RepresentanteLegal")
-     * @ORM\JoinColumn(name="rut_representante", referencedColumnName="rut_persona")
+     *Many Proyecto has One RepresentanteLegal
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumn(name="rut_representante", referencedColumnName="rut")
      */
     private $rut_representante;
 

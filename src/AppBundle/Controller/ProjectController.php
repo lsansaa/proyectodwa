@@ -49,18 +49,22 @@ class ProjectController extends Controller {
             $nombre = $form["nombre"]->getData();
             $fechainicio = $form["fecha_inicio"]->getData();
             $fechatermino = $form["fecha_termino"]->getData();
-            $rutdirector = $form->get("rut_director");
+            $rutdirector = $form["rut_director"]->getData();
             $rutrepresentante = $form["rut_representante"]->getData();
 
             $proyecto->setNombre($nombre);
             $proyecto->setFechaInicio($fechainicio);
             $proyecto->setFechaTermino($fechatermino);
-            $proyecto->setRutDirector($rutdirector);
-            $proyecto->setRutRepresentante($rutrepresentante);
+            $proyecto->setEstado('publicado');
+
+            $personadirector = $this->getDoctrine()->getRepository(Persona::class)->find($rutdirector);
+            $personarepresentante = $this->getDoctrine()->getRepository(Persona::class)->find($rutrepresentante);
+
+            $proyecto->setRutDirector($personadirector);
+            $proyecto->setRutRepresentante($personarepresentante);
 
             //Inicializo la persistencia.
             $em = $this->getDoctrine()->getManager();
-
             $em->persist($proyecto);
             $em->flush();
             return new Response("<html><body><h1>Ingreso exitoso</h1></body></html>");
