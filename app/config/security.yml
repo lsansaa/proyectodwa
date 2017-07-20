@@ -34,7 +34,6 @@ security:
                 target_path_parameter:          login_success
                 use_referer:                    false
                 # login failure redirecting options (read further below)
-                failure_path:    /foo
                 failure_forward: false
                 failure_path_parameter: login_fail
                 # by default, the login form *must* be a POST, not a GET

@@ -13,34 +13,6 @@
 
     </head>
     <body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Tecnologías Web Avanzadas</a>
-
-                </div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Usuarios</a></li>
-                    <li><a href="#">Proyectos</a></li>
-                    <li><a href="#">Ayuda</a></li>
-                </ul>
-                <ul class="nav navbar-nav pull-right">
-                    <li class="active">
-                        {% if app.user %}
-                            <a href="{{ path('logout') }}" >
-                                <span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión
-                            </a>
-                        {% else %}
-                            <a href="{{ path('login') }}">
-                                <span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión
-                            </a>
-                        {% endif %}
-                    </li>
-                </ul>
-
-            </div>
-        </nav>
         {% block body %}
         {% endblock %}
 
