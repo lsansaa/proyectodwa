@@ -22,6 +22,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PersonaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options){
+
+
+
         $builder
             ->add('rut', TextType::class)
             ->add('nombre', TextType::class)

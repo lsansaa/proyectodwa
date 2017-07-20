@@ -20,17 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class UserController extends Controller {
 
     /**
-     * @Route("/registro")
-     */
-    public function registroUsuario(){
-
-        return $this->render('default/nuevousuario.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
-
-    }
-
-    /**
      * @Route("/register", name="user_registration")
      *
      */
