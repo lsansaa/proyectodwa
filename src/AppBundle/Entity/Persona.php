@@ -247,7 +247,7 @@ class Persona implements AdvancedUserInterface, \Serializable
 
     public function serialize()
     {
-        return $this->serialize(array(
+        return serialize(array(
             $this->rut,
             $this->password,
             $this->apellido_materno,
