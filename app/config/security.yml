@@ -30,7 +30,7 @@ security:
                 check_path: /login
                 # login success redirecting options (read further below)
                 always_use_default_target_path: false
-                default_target_path:            /
+                default_target_path:            default_security_target
                 target_path_parameter:          login_success
                 use_referer:                    false
                 # login failure redirecting options (read further below)
@@ -41,7 +41,7 @@ security:
                 post_only:      true
                 remember_me:    false
 
-                require_previous_session: true
+                require_previous_session: false
             logout:
                 path:   /logout
                 target: /
