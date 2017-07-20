@@ -7,6 +7,10 @@
             <div class="panel-heading">
                 <div class="panel-title text-center">
                     <h1>Proyectos (En construcción)</h1>
+                    <br>
+                    {% for proyecto in proyectos %}
+                    <li>{{ proyecto.nombre }} {{ proyecto.rutdirector.rut }}</li>
+                    {% endfor %}
                 </div>
             </div>
             <div class="form-group">

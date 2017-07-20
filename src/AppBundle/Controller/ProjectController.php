@@ -82,7 +82,8 @@ class ProjectController extends Controller {
      */
     public function proyectos(){
 
-        return $this->render('default/proyectos.html.twig');
+        $proyectos = $this->getDoctrine()->getRepository(Proyecto::class)->findAll();
+        return $this->render('default/proyectos.html.twig',array('proyectos' => $proyectos));
 
     }
 
