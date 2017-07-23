@@ -23,7 +23,9 @@
                     <td>{{ proyecto.fechainicio|date('Y-m-d') }}</td>
                     <td>{{ proyecto.fechatermino|date('Y-m-d') }}</td>
                     <td>{{ proyecto.estado }}</td>
-                    <td><button type="submit" name="nombre_proyecto" value="{{ proyecto.nombre }}" class="btn-link">Ver</button></td>
+                    <td>
+                        <a class="btn btn-info btn-lg" href="{{ path('detalle_proyecto', {'id_proyecto': proyecto.id}) }}">Ver</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

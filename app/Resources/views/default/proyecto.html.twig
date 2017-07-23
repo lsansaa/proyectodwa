@@ -23,7 +23,7 @@
                 <h2>Archivos</h2>
             </div>
             <ul class="nav navbar-nav">
-                {% if archivos is defined and pageTitle is not empty  %}
+                {% if archivos is defined and archivos is not empty  %}
                     {% for archivo in archivos %}
                         <li><a href="#">{{ archivo.nombre }}</a></li>
                     {% endfor %}

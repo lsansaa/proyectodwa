@@ -12,10 +12,10 @@ use AppBundle\Entity\Archivo;
 use AppBundle\Entity\Persona;
 use AppBundle\Entity\Proyecto;
 use AppBundle\Form\ArchivoType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ArchivoController extends Controller {
 
@@ -23,13 +23,17 @@ class ArchivoController extends Controller {
      * @Route("/registrar_archivo/{id_proyecto}", name="registrar_archivo")
      */
     public function registrarArchivo(Request $request, $id_proyecto){
+
         //(0) Obtener usuario de la sesión y proyecto del archivo
-        $persona = $this->getUser();
+        $persona = $this->getDoctrine()
+            ->getRepository(Persona::class)
+            ->find(array(
+                "rut"=>$this->getUser()
+            ));
         $proyecto = $this->getDoctrine()
             ->getRepository(Proyecto::class)
-            ->findBy(array(
-                "id"=>$id_proyecto
-            ));
+            ->find($id_proyecto);
+
         //(1) Se crea el form
         $archivo = new Archivo();
         $form = $this->createForm(ArchivoType::class , $archivo);
@@ -38,14 +42,38 @@ class ArchivoController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // 3) Referenciar al proyecto al pertenece el archivo
-            // y la persona que lo inserto.
-            $file = $archivo->getDatos();
-            $type = $file->getMimeType();
+            // 3) Referenciar al proyecto al que pertenece el archivo
+            // y la persona que lo subio;
             $archivo->setIdProyecto($proyecto);
             $archivo->setRutPersona($persona);
 
-            // 4) guardar el archivo
+            // 4) file guarda el archivo subido
+            /** @var UploadedFile $file */
+            $file = $archivo->getRuta();
+
+            // 5) Guardar tipo del archivo
+
+            $tipo = $file->getMimeType();
+
+            // 6) Generar nombre del archivo unico
+
+            $nombreArchivo = md5(uniqid()).'.'.$file->guessExtension();
+
+            // 7) Mover el archivo al directorio donde se guardara
+
+            $file->move(
+                $this->getParameter('directorio_archivos'),
+                $nombreArchivo
+            );
+
+            // 8) Actualizar ruta archivo
+
+            $archivo->setRuta($nombreArchivo);
+
+
+            $archivo->setTipo($tipo);
+
+            // 9) guardar el archivo
             $em = $this->getDoctrine()->getManager();
             $em->persist($archivo);
             $em->flush();
@@ -53,7 +81,9 @@ class ArchivoController extends Controller {
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the archivo
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('detalle_proyecto',array(
+                'id_proyecto' => $id_proyecto
+            ));
         }
 
         return $this->render(

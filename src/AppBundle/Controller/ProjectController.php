@@ -116,16 +116,15 @@ class ProjectController extends Controller {
 
 
     /**
-     * @Route("/proyectos/{nombre_proyecto}")
+     * @Route("/proyectos/detalle/{id_proyecto}", name="detalle_proyecto")
      *
      */
-    /*
-    public function verProyecto(Request $request, $nombre_proyecto){
+    public function verProyecto(Request $request, $id_proyecto){
 
         $proyecto = $this->getDoctrine()
                             ->getRepository(Proyecto::class)
                             ->findOneBy(array(
-                                'nombre' => $nombre_proyecto
+                                'id' => $id_proyecto
                             ));
         $archivos = $this->getDoctrine()
                             ->getRepository(Archivo::class)
@@ -136,7 +135,7 @@ class ProjectController extends Controller {
             'proyecto'=>$proyecto,
             'archivos'=>$archivos
         ));
-    }*/
+    }
 
 
 }

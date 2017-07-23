@@ -24,31 +24,33 @@ class Archivo
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="nombre", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Por favor, ingrese un nombre para el archivo")
+     * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="tipo", type="string", length=255)
      */
     private $tipo;
 
     /**
      * @var file
-     *
-     * @ORM\Column(name="datos", type="blob", length=255, nullable=true)
+     * @Assert\NotBlank(message="Por favor, seleccione un archivo")
+     * @Assert\File(
+     *     maxSize="20M"
+     * )
+     * @ORM\Column(name="ruta", type="string")
      */
-    private $datos;
+    private $ruta;
 
     /**
      * @var string
-     * @Assert\File(
-     *     maxSize = "20M"
-     * )
-     * @ORM\Column(name="estado", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Por favor, seleccione un estado para el archivo")
+
+     * @ORM\Column(name="estado", type="string", length=255)
      */
     private $estado;
 
@@ -73,6 +75,7 @@ class Archivo
      *
      * @return int
      */
+
 
 
     public function getId()
@@ -115,17 +118,17 @@ class Archivo
     /**
      * @return string
      */
-    public function getDatos()
+    public function getRuta()
     {
-        return $this->datos;
+        return $this->ruta;
     }
 
     /**
-     * @param string $datos
+     * @param string $ruta_archivo
      */
-    public function setDatos($datos)
+    public function setRuta($ruta)
     {
-        $this->datos = $datos;
+        $this->ruta = $ruta;
     }
 
     /**

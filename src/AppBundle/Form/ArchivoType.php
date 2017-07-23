@@ -11,7 +11,6 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Archivo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +24,7 @@ class ArchivoType extends AbstractType
 
         $builder
             ->add('nombre', TextType::class)
-            ->add('datos', FileType::class)
+            ->add('ruta', FileType::class)
             ->add('estado', ChoiceType::class, array(
                 'choices'=> array(
                     'Seleccione un tipo de usuario' => null,
