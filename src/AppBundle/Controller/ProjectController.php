@@ -10,9 +10,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Proyecto;
 use AppBundle\Entity\Persona;
-use AppBundle\Entity\Director;
-use AppBundle\Entity\RepresentanteLegal;
+use AppBundle\Entity\Archivo;
 use AppBundle\Form\ProyectoType;
+use Distill\Format\Simple\Ar;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,6 +85,28 @@ class ProjectController extends Controller {
         $proyectos = $this->getDoctrine()->getRepository(Proyecto::class)->findAll();
         return $this->render('default/proyectos.html.twig',array('proyectos' => $proyectos));
 
+    }
+
+    /**
+     * @Route("/proyectos/{nombre_proyecto}")
+     *
+     */
+
+    public function verProyecto(Request $request, $nombre_proyecto){
+        $proyecto = $this->getDoctrine()
+                            ->getRepository(Proyecto::class)
+                            ->findOneBy(array(
+                                'nombre' => $nombre_proyecto
+                            ));
+        $archivos = $this->getDoctrine()
+                            ->getRepository(Archivo::class)
+                            ->findBy(array(
+                                'id_proyecto' => $proyecto
+                            ));
+        return $this->render('default/proyecto.html.twig', array(
+            'proyecto'=>$proyecto,
+            'archivos'=>$archivos
+        ));
     }
 
 

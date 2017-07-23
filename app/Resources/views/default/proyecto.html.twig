@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{%  block body %}
+
+    <div class="container">
+        <div class="main-login main-center">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h1>{{ proyecto.nombre }}</h1>
+                </div>
+            </div>
+            <div class="page-header">
+                <h2>Director</h2>
+            </div>
+            <p>Nombre: {{ proyecto.rutdirector.nombre}}</p>
+            <p>Rut: {{ proyecto.rutdirector.rut}}</p>
+            <div class="page-header">
+                <h2>Representante Legal</h2>
+            </div>
+            <p>Nombre: {{ proyecto.rutrepresentante.nombre }}</p>
+            <p>Rut: {{ proyecto.rutdirector.rut}}</p>
+            <div class="page-header">
+                <h2>Archivos</h2>
+            </div>
+            <ul class="nav navbar-nav">
+                {% if archivos is defined and pageTitle is not empty  %}
+                    {% for archivo in archivos %}
+                        <li><a href="#">{{ archivo.nombre }}</a></li>
+                    {% endfor %}
+                {% endif %}
+                <li><a class="btn btn-info btn-lg" href="{{ path('registrar_archivo', {'id_proyecto': proyecto.id}) }}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

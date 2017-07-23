@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Archivo
@@ -36,7 +37,7 @@ class Archivo
     private $tipo;
 
     /**
-     * @var blob
+     * @var file
      *
      * @ORM\Column(name="datos", type="blob", length=255, nullable=true)
      */
@@ -44,20 +45,28 @@ class Archivo
 
     /**
      * @var string
-     *
+     * @Assert\File(
+     *     maxSize = "20M"
+     * )
      * @ORM\Column(name="estado", type="string", length=255, nullable=true)
      */
     private $estado;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="id_proyecto", type="string")
-     * One Archivo has One Proyecto
-     * @ORM\OneToOne(targetEntity="Proyecto")
+     * Many Archivo has One Proyecto
+     * @ORM\ManyToOne(targetEntity="Proyecto")
      * @ORM\JoinColumn(name="id_proyecto", referencedColumnName="id")
      */
     private $id_proyecto;
+
+    /**
+     *
+     * Many Archivo has One Persona
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @ORM\JoinColumn(name="rut_persona", referencedColumnName="rut")
+     */
+    private $rut_persona;
 
     /**
      * Get id
@@ -74,7 +83,7 @@ class Archivo
     /**
      * @return string
      */
-    public function getNombre(): string
+    public function getNombre()
     {
         return $this->nombre;
     }
@@ -82,7 +91,7 @@ class Archivo
     /**
      * @param string $nombre
      */
-    public function setNombre(string $nombre)
+    public function setNombre($nombre)
     {
         $this->nombre = $nombre;
     }
@@ -90,7 +99,7 @@ class Archivo
     /**
      * @return string
      */
-    public function getTipo(): string
+    public function getTipo()
     {
         return $this->tipo;
     }
@@ -98,7 +107,7 @@ class Archivo
     /**
      * @param string $tipo
      */
-    public function setTipo(string $tipo)
+    public function setTipo($tipo)
     {
         $this->tipo = $tipo;
     }
@@ -106,7 +115,7 @@ class Archivo
     /**
      * @return string
      */
-    public function getDatos(): string
+    public function getDatos()
     {
         return $this->datos;
     }
@@ -114,7 +123,7 @@ class Archivo
     /**
      * @param string $datos
      */
-    public function setDatos(string $datos)
+    public function setDatos($datos)
     {
         $this->datos = $datos;
     }
@@ -122,7 +131,7 @@ class Archivo
     /**
      * @return string
      */
-    public function getEstado(): string
+    public function getEstado()
     {
         return $this->estado;
     }
@@ -130,7 +139,7 @@ class Archivo
     /**
      * @param string $estado
      */
-    public function setEstado(string $estado)
+    public function setEstado($estado)
     {
         $this->estado = $estado;
     }
@@ -138,7 +147,7 @@ class Archivo
     /**
      * @return string
      */
-    public function getIdProyecto(): string
+    public function getIdProyecto()
     {
         return $this->id_proyecto;
     }
@@ -146,10 +155,27 @@ class Archivo
     /**
      * @param string $id_proyecto
      */
-    public function setIdProyecto(string $id_proyecto)
+    public function setIdProyecto($id_proyecto)
     {
         $this->id_proyecto = $id_proyecto;
     }
+
+    /**
+     * @return string
+     */
+    public function getRutPersona()
+    {
+        return $this->rut_persona;
+    }
+
+    /**
+     * @param string $rut_persona
+     */
+    public function setRutPersona($rut_persona)
+    {
+        $this->rut_persona = $rut_persona;
+    }
+
 
 
 }
