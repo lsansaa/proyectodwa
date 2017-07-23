@@ -3,20 +3,31 @@
 {%  block body %}
 
     <div class="container">
-        <div class="main-login main-center">
-            <div class="panel-heading">
-                <div class="panel-title text-center">
-                    <h1>Proyectos (En construcción)</h1>
-                    <br>
-                    {% for proyecto in proyectos %}
-                    <li>{{ proyecto.nombre }} {{ proyecto.rutdirector.rut }}</li>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
+        <h2>Proyectos</h2>
+        <p>Lista de proyectos </p>
 
-            </div>
-        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha inicio</th>
+                <th>Fecha término</th>
+                <th>Estado</th>
+                <th>Detalles</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for proyecto in proyectos %}
+                <tr>
+                    <td>{{ proyecto.nombre }}</td>
+                    <td>{{ proyecto.fechainicio|date('Y-m-d') }}</td>
+                    <td>{{ proyecto.fechatermino|date('Y-m-d') }}</td>
+                    <td>{{ proyecto.estado }}</td>
+                    <td><button type="submit" name="nombre_proyecto" value="{{ proyecto.nombre }}" class="btn-link">Ver</button></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 {% endblock %}
