@@ -78,21 +78,50 @@ class ProjectController extends Controller {
     }
 
     /**
-     * @Route("/proyectos")
+     * @Route("/proyectos/")
      */
-    public function proyectos(){
+    public function proyectos(Request $request){
+
+        $proyecto = new Proyecto();
+
+        $form = $this->createFormBuilder($proyecto)->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+
+            $nombre_proyecto = $request->get('nombre_proyecto');
+            return new Response("<html><body>$nombre_proyecto</body></html>");
+
+            $proyecto = $this->getDoctrine()
+                ->getRepository(Proyecto::class)
+                ->findOneBy(array(
+                    'nombre' => $nombre_proyecto
+                ));
+            $archivos = $this->getDoctrine()
+                ->getRepository(Archivo::class)
+                ->findBy(array(
+                    'id_proyecto' => $proyecto
+                ));
+            return $this->render('default/proyecto.html.twig', array(
+                'proyecto'=>$proyecto,
+                'archivos'=>$archivos
+            ));
+
+        }
 
         $proyectos = $this->getDoctrine()->getRepository(Proyecto::class)->findAll();
-        return $this->render('default/proyectos.html.twig',array('proyectos' => $proyectos));
+        return $this->render('default/proyectos.html.twig',array('proyectos' => $proyectos, 'form' => $form->createView()));
 
     }
+
 
     /**
      * @Route("/proyectos/{nombre_proyecto}")
      *
      */
-
+    /*
     public function verProyecto(Request $request, $nombre_proyecto){
+
         $proyecto = $this->getDoctrine()
                             ->getRepository(Proyecto::class)
                             ->findOneBy(array(
@@ -107,7 +136,7 @@ class ProjectController extends Controller {
             'proyecto'=>$proyecto,
             'archivos'=>$archivos
         ));
-    }
+    }*/
 
 
 }

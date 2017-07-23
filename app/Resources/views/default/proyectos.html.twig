@@ -4,8 +4,8 @@
 
     <div class="container">
         <h2>Proyectos</h2>
-        <p>Lista de proyectos </p>
-
+        <p>Lista de proyectos</p>
+        {{ form_start(form, {'method': 'POST'}) }}
         <table class="table table-striped">
             <thead>
             <tr>
@@ -28,6 +28,7 @@
             {% endfor %}
             </tbody>
         </table>
+        {{ form_end(form) }}
     </div>
 
 {% endblock %}
