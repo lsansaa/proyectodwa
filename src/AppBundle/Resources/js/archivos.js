@@ -85,7 +85,7 @@ function eliminarArchivo(id_archivo, path){
         url: path,
         dataType: "json",
         data: {id: id_archivo},
-        success :  console.log("Cambios hechos")
+        success :  console.log("Archivo eliminado")
     });
 
 }
