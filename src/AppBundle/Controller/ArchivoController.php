@@ -15,11 +15,13 @@ use AppBundle\Form\ArchivoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class ArchivoController extends Controller {
 
@@ -154,5 +156,26 @@ class ArchivoController extends Controller {
         return $this->render('default/archivo.html.twig', array(
             'archivo' => $archivo,'form' => $form->createView()
         ));
+    }
+
+    /**
+     * @Route ("/archivo/descargar/{id_archivo}", name="descargar_archivo")
+     *
+     */
+    public function descargarArchivo(Request $request, $id_archivo){
+        //0) Se obtiene el archivo con la id
+        $archivo = $this->getDoctrine()
+            ->getRepository(Archivo::class)
+            ->find($id_archivo
+            );
+
+        $rutaArchivo = $this->getParameter('directorio_archivos').'/'.$archivo->getRuta();
+
+        //$file = $this->file($rutaArchivo);
+
+        $response = new BinaryFileResponse($rutaArchivo);
+        $response->headers->set ( 'Content-Type', 'text/plain' );
+        $response->setContentDisposition ( ResponseHeaderBag::DISPOSITION_ATTACHMENT, $archivo->getNombre() );
+        return $response;
     }
 }
