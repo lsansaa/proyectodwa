@@ -1,5 +1,6 @@
 $( document ).ready(function() {
     $(".btnEdit").click(function(){
+        var path = $("#tbody").attr('data-pathEditar');
 
         var tempid = this.id;
         var id = tempid.split("_")[1];
@@ -50,14 +51,41 @@ $( document ).ready(function() {
             $("#"+nombre).replaceWith(textNombre);
             $("#"+estado).replaceWith(textEstado);
 
-            $(span).attr('class','glyphicon glyphicon-pencil text-info');
+            $(span).attr('class','glyphicon glyphicon-pencil text-warning');
             $(this).attr('data-editing', '0');
+
+            editarArchivo(id, nombreText, estadoText, path);
         }
 
 
     });
     $(".btnDelete").click(function(){
-        var id = this.id;
-        console.log( id );
+        var tempid = this.id;
+        var id = tempid.split("_")[1];
+        var path = $("#tbody").attr('data-pathEliminar');
+        $("#"+id).remove();
+        eliminarArchivo(id, path);
     });
 });
+
+function editarArchivo(id_archivo, nombreArchivo, estadoArchivo, path){
+    $.ajax({
+        type: "POST",
+        url: path,
+        dataType: "json",
+        data: {id: id_archivo, nombre: nombreArchivo, estado: estadoArchivo},
+        success :  console.log("Cambios hechos")
+    });
+}
+
+function eliminarArchivo(id_archivo, path){
+
+    $.ajax({
+        type: "POST",
+        url: path,
+        dataType: "json",
+        data: {id: id_archivo},
+        success :  console.log("Cambios hechos")
+    });
+
+}

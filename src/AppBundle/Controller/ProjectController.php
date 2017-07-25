@@ -126,11 +126,11 @@ class ProjectController extends Controller {
                             ->findOneBy(array(
                                 'id' => $id_proyecto
                             ));
+
+
         $archivos = $this->getDoctrine()
                             ->getRepository(Archivo::class)
-                            ->findBy(array(
-                                'id_proyecto' => $proyecto
-                            ));
+                            ->findArchivosByProyectoId($id_proyecto);
         return $this->render('default/proyecto.html.twig', array(
             'proyecto'=>$proyecto,
             'archivos'=>$archivos
