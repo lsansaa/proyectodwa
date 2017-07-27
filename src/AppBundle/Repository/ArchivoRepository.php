@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class ArchivoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findArchivosByProyectoId($idProyecto){
+
+        $qb = $this->createQueryBuilder('a');
+        $qb->where($qb->expr()->andX(
+                        $qb->expr()->not($qb->expr()->eq('a.estado', '?1')),
+                        $qb->expr()->eq('a.id_proyecto', '?2')
+            ));
+        $qb->setParameter("1", "ELIMINADO");
+        $qb->setParameter("2", $idProyecto);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="container">
+        <div class="main-login main-center">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h1 class="title">Subir Archivo</h1>
+                </div>
+            </div>
+            {% block form_start -%}
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+                <div class="form-group">
+                    {{ form_row(form.nombre) }}
+                    {{ form_row(form.ruta) }}
+                    {{ form_row(form.estado) }}
+
+                    {% block button_widget -%}
+                        <button type="submit" class="btn btn-primary ">Registrar</button>
+                    {%- endblock %}
+                </div>
+                {{ form_end(form) }}
+            {%- endblock form_start %}
+        </div>
+    </div>
+{% endblock %}

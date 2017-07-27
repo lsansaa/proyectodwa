@@ -5,7 +5,7 @@
  * Date: 15/07/17
  * Time: 14:25
  */
-// src/AppBundle/Form/UserType.php
+
 namespace AppBundle\Form;
 
 

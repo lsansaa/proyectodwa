@@ -43,8 +43,7 @@ class Proyecto
     private $nombre;
 
     /**
-     * @var string
-     *Many Proyecto has One Director
+     * Many Proyecto has One Director
      * @ORM\ManyToOne(targetEntity="Persona")
      * @ORM\JoinColumn(name="rut_director", referencedColumnName="rut")
      */
@@ -52,7 +51,7 @@ class Proyecto
     private $rut_director;
 
     /**
-     *Many Proyecto has One RepresentanteLegal
+     * Many Proyecto has One RepresentanteLegal
      * @ORM\ManyToOne(targetEntity="Persona")
      * @ORM\JoinColumn(name="rut_representante", referencedColumnName="rut")
      */
