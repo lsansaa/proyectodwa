@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Feed;
+use AppBundle\Entity\Proyecto;
 
 class DefaultController extends Controller
 {
@@ -17,22 +18,27 @@ class DefaultController extends Controller
     {
 
         $usuario = $this->getUser();
-
-        if(strcmp($usuario,"luis") == 0){
+        //Acceso por medio de una credencial guardada en memoria. (No obtenida de la BD).
+        if(strcmp($usuario,'luis') == 0){
 
             $feed = new Feed();
             $form = $this->createFormBuilder($feed)->getForm();
 
             $feeds = $this->getDoctrine()->getRepository(Feed::class)->findAll();
-            return $this->render('default/index.html.twig',array('feeds' => $feeds, 'form' => $form->createView()));
+            $proyectos = $this->getDoctrine()->getRepository(Proyecto::class)->findAll();
+            return $this->render('default/index.html.twig',array(
+                'feeds' => $feeds,
+                'form' => $form->createView(),
+                'proyectos' => $proyectos));
+
 
         }else{
 
-            return new Response("<hml><h1>EN CONSTRUCCIÓN</h1></hml>");
+            return new Response("<html><h1>EN CONSTRUCCIÓN</h1></html>");
 
         }
 
-        return new Response("<hml><h1>EN CONSTRUCCIÓN</h1></hml>");
+        return new Response("<html><h1>EN CONSTRUCCIÓN</h1></html>");
 
     }
 

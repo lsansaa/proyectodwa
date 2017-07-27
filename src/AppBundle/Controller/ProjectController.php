@@ -22,7 +22,7 @@ use Doctrine\ORM\EntityRepository;
 class ProjectController extends Controller {
 
     /**
-     * @Route("/nuevoproyecto")
+     * @Route("/nuevoproyecto", name="registrar_proyecto")
      */
     public function nuevoProyecto(Request $request){
 

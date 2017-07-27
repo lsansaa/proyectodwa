@@ -99,7 +99,7 @@ class ArchivoController extends Controller {
      * @Route ("/archivo/editar/", name="editar_archivo")
      *
      */
-    public function verArchivo(Request $request)
+    public function editarArchivo(Request $request)
     {
         if($request->isXmlHttpRequest())
         {
@@ -190,4 +190,5 @@ class ArchivoController extends Controller {
         return $response;
 
     }
+
 }
