@@ -24,13 +24,13 @@ security:
             pattern: ^/
             anonymous: ~
             http_basic: ~
-            provider: in_memory
+            provider: our_db_provider
             form_login:
                 login_path: /login
                 check_path: /login
                 # login success redirecting options (read further below)
                 always_use_default_target_path: false
-                default_target_path:            proyectos
+                default_target_path:            /
                 target_path_parameter:          login_success
                 use_referer:                    false
                 # login failure redirecting options (read further below)
@@ -47,7 +47,8 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_ADMIN }
+        #- { path: ^/, roles: ROLE_USER}
+        #- { path: ^/, roles: ROLE_ADMIN}
 
     encoders:
       Symfony\Component\Security\Core\User\User: bcrypt

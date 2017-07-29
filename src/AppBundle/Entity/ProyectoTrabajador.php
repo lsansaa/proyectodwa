@@ -25,17 +25,17 @@ class ProyectoTrabajador
      * @var string
      *
      * @ORM\Column(name="rut_trabajador", type="string")
-     * One ProyectoTrabajador has One Trabajador
-     * @ORM\OneToOne(targetEntity="Trabajador")
+     * One ProyectoTrabajador has One Persona
+     * @ORM\OneToOne(targetEntity="Persona")
      * @ORM\JoinColumn(name="rut_trabajador", referencedColumnName="rut_persona")
      */
     private $rut_trabajador;
 
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="id_proyecto", type="string")
+     * @ORM\Column(name="id_proyecto", type="integer")
      * One ProyectoTrabajador has One Proyecto
      * @ORM\OneToOne(targetEntity="Proyecto")
      * @ORM\JoinColumn(name="id_proyecto", referencedColumnName="id")
@@ -70,9 +70,9 @@ class ProyectoTrabajador
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getIdProyecto(): string
+    public function getIdProyecto(): int
     {
         return $this->id_proyecto;
     }
