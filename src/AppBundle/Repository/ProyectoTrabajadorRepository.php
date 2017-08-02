@@ -10,4 +10,6 @@ namespace AppBundle\Repository;
  */
 class ProyectoTrabajadorRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
 }

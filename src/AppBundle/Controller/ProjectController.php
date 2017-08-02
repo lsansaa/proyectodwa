@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Proyecto;
 use AppBundle\Entity\Persona;
 use AppBundle\Entity\Archivo;
+use AppBundle\Entity\ProyectoTrabajador;
 use AppBundle\Form\ProyectoType;
 use Distill\Format\Simple\Ar;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,6 +26,13 @@ class ProjectController extends Controller {
      * @Route("/nuevoproyecto", name="registrar_proyecto")
      */
     public function nuevoProyecto(Request $request){
+
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
 
         $personasTemp = $this->getDoctrine()->getRepository(Persona::class)->findAll();
         $personas = array();
@@ -84,6 +92,13 @@ class ProjectController extends Controller {
      */
     public function verProyecto(Request $request, $id_proyecto){
 
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
+
         $proyecto = $this->getDoctrine()
                             ->getRepository(Proyecto::class)
                             ->findOneBy(array(
@@ -94,9 +109,18 @@ class ProjectController extends Controller {
         $archivos = $this->getDoctrine()
                             ->getRepository(Archivo::class)
                             ->findArchivosByProyectoId($id_proyecto);
+
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery('SELECT t FROM AppBundle:Persona t, AppBundle:ProyectoTrabajador pt WHERE pt.id_proyecto = :id and pt.rut_trabajador = t.rut')->setParameter('id',$id_proyecto);
+        $trabajadores = $query->getResult();
+
+        //$trabajadoresproyecto = $this->getDoctrine()->getRepository(ProyectoTrabajador::class)
+
         return $this->render('default/proyecto.html.twig', array(
             'proyecto'=>$proyecto,
-            'archivos'=>$archivos
+            'archivos'=>$archivos,
+            'trabajadores'=>$trabajadores
         ));
     }
 

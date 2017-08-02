@@ -18,7 +18,30 @@
                 <h2>Representante Legal</h2>
             </div>
             <p>Nombre: {{ proyecto.rutrepresentante.nombre }}</p>
-            <p>Rut: {{ proyecto.rutdirector.rut}}</p>
+            <p>Rut: {{ proyecto.rutrepresentante.rut}}</p>
+            <div class="page-header">
+                <h2>Trabajadores</h2>
+            </div>
+            <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Apellido paterno</th>
+                <th>Apellido materno</th>
+            </tr>
+            </thead>
+                <tbody>
+            {% for trabajador in trabajadores %}
+                <tr>
+                    <td>{{ trabajador.rut}}</td>
+                    <td>{{ trabajador.nombre }}</td>
+                    <td>{{ trabajador.apellidopaterno }}</td>
+                    <td>{{ trabajador.apellidomaterno }}</td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
             <div class="page-header">
                 <h2>Archivos</h2>
             </div>

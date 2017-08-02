@@ -24,10 +24,9 @@ class ProyectoTrabajador
     /**
      * @var string
      *
-     * @ORM\Column(name="rut_trabajador", type="string")
      * One ProyectoTrabajador has One Persona
      * @ORM\OneToOne(targetEntity="Persona")
-     * @ORM\JoinColumn(name="rut_trabajador", referencedColumnName="rut_persona")
+     * @ORM\JoinColumn(name="rut_trabajador", referencedColumnName="rut")
      */
     private $rut_trabajador;
 

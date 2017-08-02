@@ -18,16 +18,20 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 
-        $feed = new Feed();
-        $form = $this->createFormBuilder($feed)->getForm();
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+
         $persona = $this->getUser();
 
-        //Redirecciona si se cerró la sesión.
         if(is_null($persona)){
 
             return $this->redirect('/login');
 
         }
+
+        $feed = new Feed();
+        $form = $this->createFormBuilder($feed)->getForm();
+
+        //Redirecciona si se cerró la sesión.
 
         if(strcmp($persona->getRol(),"ROLE_ADMIN") == 0){
 

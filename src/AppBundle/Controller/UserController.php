@@ -25,11 +25,19 @@ class UserController extends Controller {
      */
     public function registrarUsuario(Request $request,UserPasswordEncoderInterface $encoder){
 
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
+
         //(1) Se crea el form
         $user = new Persona();
         $form = $this->createForm(PersonaType::class , $user);
         //(2) Handle submit
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             // 3) codificar password)
@@ -44,7 +52,8 @@ class UserController extends Controller {
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
-            return $this->redirectToRoute('login');
+            return $this->redirect('/');
+
         }
 
         return $this->render(

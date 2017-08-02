@@ -27,6 +27,13 @@ class ArchivoController extends Controller {
      */
     public function registrarArchivo(Request $request, $id_proyecto){
 
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
+
         //(0) Obtener usuario de la sesión y proyecto del archivo
         $persona = $this->getDoctrine()
             ->getRepository(Persona::class)
@@ -101,6 +108,14 @@ class ArchivoController extends Controller {
      */
     public function editarArchivo(Request $request)
     {
+
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
+
         if($request->isXmlHttpRequest())
         {
             $id = $request->request->get('id');
@@ -139,6 +154,14 @@ class ArchivoController extends Controller {
      *
      */
     public function descargarArchivo(Request $request, $id_archivo){
+
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
+
         //0) Se obtiene el archivo con la id
         $archivo = $this->getDoctrine()
             ->getRepository(Archivo::class)
@@ -161,6 +184,14 @@ class ArchivoController extends Controller {
      */
     public function eliminarArchivo(Request $request)
     {
+
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
+
         if($request->isXmlHttpRequest())
         {
             $id = $request->request->get('id');
