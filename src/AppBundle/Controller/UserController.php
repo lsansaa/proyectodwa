@@ -44,6 +44,7 @@ class UserController extends Controller {
             $password = $encoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setisActive(true);
+            $user->setRol("ROLE_USER");
             // 4) guardar el usuario
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
