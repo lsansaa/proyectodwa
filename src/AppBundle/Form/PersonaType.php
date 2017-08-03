@@ -23,10 +23,18 @@ class PersonaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options){
 
         $builder
-            ->add('rut', TextType::class)
-            ->add('nombre', TextType::class)
-            ->add('apellido_paterno', TextType::class)
-            ->add('apellido_materno', TextType::class)
+            ->add('rut', TextType::class, array(
+                'attr' => ['pattern' => '[0-9\-\.kK]*']
+            ))
+            ->add('nombre', TextType::class, array(
+                'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]*']
+            ))
+            ->add('apellido_paterno', TextType::class, array(
+                'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]*']
+            ))
+            ->add('apellido_materno', TextType::class, array(
+                'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]*']
+            ))
             ->add('email', EmailType::class)
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
