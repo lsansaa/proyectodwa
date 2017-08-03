@@ -24,26 +24,22 @@ class Feed
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     * @ORM\Column(name="descripcion", type="string", length=255)
      */
     private $descripcion;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="rut_usuario", type="string", length=255, nullable=true)
-     * One Archivo has One Persona
-     * @ORM\OneToOne(targetEntity="Persona")
+     * Many Feed has One Persona
+     * @ORM\ManyToOne(targetEntity="Persona")
      * @ORM\JoinColumn(name="rut_usuario", referencedColumnName="rut")
      */
     private $rut_usuario;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="id_archivo", type="string", length=255, nullable=true)
-     * One Feed has One Archivo
-     * @ORM\OneToOne(targetEntity="Archivo")
+     * Many Feed has One Archivo
+     * @ORM\ManyToOne(targetEntity="Archivo")
      * @ORM\JoinColumn(name="id_archivo", referencedColumnName="id")
      */
     private $id_archivo;
@@ -51,7 +47,7 @@ class Feed
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="datetime")
+     * @ORM\Column(name="fecha", type="datetime", nullable=true)
      *
      */
     private $fecha;
@@ -69,7 +65,7 @@ class Feed
     /**
      * @return string
      */
-    public function getDescripcion(): string
+    public function getDescripcion()
     {
         return $this->descripcion;
     }
@@ -77,7 +73,7 @@ class Feed
     /**
      * @param string $descripcion
      */
-    public function setDescripcion(string $descripcion)
+    public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
     }
@@ -85,7 +81,7 @@ class Feed
     /**
      * @return string
      */
-    public function getRutUsuario(): string
+    public function getRutUsuario()
     {
         return $this->rut_usuario;
     }
@@ -93,7 +89,7 @@ class Feed
     /**
      * @param string $rut_usuario
      */
-    public function setRutUsuario(string $rut_usuario)
+    public function setRutUsuario($rut_usuario)
     {
         $this->rut_usuario = $rut_usuario;
     }
@@ -101,7 +97,7 @@ class Feed
     /**
      * @return string
      */
-    public function getIdArchivo(): string
+    public function getIdArchivo()
     {
         return $this->id_archivo;
     }
@@ -109,7 +105,7 @@ class Feed
     /**
      * @param string $id_archivo
      */
-    public function setIdArchivo(string $id_archivo)
+    public function setIdArchivo($id_archivo)
     {
         $this->id_archivo = $id_archivo;
     }

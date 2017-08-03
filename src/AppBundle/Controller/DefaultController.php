@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Archivo;
+use AppBundle\Entity\Persona;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,5 +63,6 @@ class DefaultController extends Controller
         return new Response("<html><h1>EN CONSTRUCCIÓN</h1></html>");
 
     }
+
 
 }

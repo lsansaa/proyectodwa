@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Archivo;
 use AppBundle\Entity\Persona;
 use AppBundle\Entity\Proyecto;
+use AppBundle\Entity\Feed;
 use AppBundle\Form\ArchivoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -87,6 +88,8 @@ class ArchivoController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($archivo);
             $em->flush();
+
+            $this->sendFeed($persona, $archivo, "Se creo el archivo ".$archivo->getNombre());
 
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the archivo
@@ -219,6 +222,26 @@ class ArchivoController extends Controller {
             400);
 
         return $response;
+
+    }
+
+    /**
+     * @param Persona $usuario
+     * @param Archivo $archivo
+     * @param $mensaje
+     */
+    public function sendFeed(Persona $usuario, Archivo $archivo, $mensaje){
+
+        //(1) se crea el feed
+        $newFeed = new Feed();
+        //(2) se definen sus valores
+        $newFeed->setRutUsuario($usuario);
+        $newFeed->setIdArchivo($archivo);
+        $newFeed->setDescripcion($mensaje);
+        //(3) se guarda en la base de datos
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($newFeed);
+        $em->flush();
 
     }
 

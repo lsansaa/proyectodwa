@@ -1,7 +1,5 @@
 $( document ).ready(function() {
     $(".btnEdit").click(function(){
-        var path = $("#tbody").attr('data-pathEditar');
-
         var tempid = this.id;
         var id = tempid.split("_")[1];
         var estadoEdicion = $(this).attr('data-editing');
@@ -54,35 +52,35 @@ $( document ).ready(function() {
             $(span).attr('class','glyphicon glyphicon-pencil text-warning');
             $(this).attr('data-editing', '0');
 
-            editarArchivo(id, nombreText, estadoText, path);
+            editarArchivo(id, nombreText, estadoText);
         }
 
 
     });
+
     $(".btnDelete").click(function(){
         var tempid = this.id;
         var id = tempid.split("_")[1];
-        var path = $("#tbody").attr('data-pathEliminar');
         $("#"+id).remove();
-        eliminarArchivo(id, path);
+        eliminarArchivo(id);
     });
 });
 
-function editarArchivo(id_archivo, nombreArchivo, estadoArchivo, path){
+function editarArchivo(id_archivo, nombreArchivo, estadoArchivo){
     $.ajax({
         type: "POST",
-        url: path,
+        url: "/archivo/editar/",
         dataType: "json",
         data: {id: id_archivo, nombre: nombreArchivo, estado: estadoArchivo},
         success :  console.log("Cambios hechos")
     });
 }
 
-function eliminarArchivo(id_archivo, path){
+function eliminarArchivo(id_archivo){
 
     $.ajax({
         type: "POST",
-        url: path,
+        url: "/archivo/eliminar/",
         dataType: "json",
         data: {id: id_archivo},
         success :  console.log("Archivo eliminado")
