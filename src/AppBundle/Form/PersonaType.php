@@ -27,13 +27,6 @@ class PersonaType extends AbstractType
             ->add('nombre', TextType::class)
             ->add('apellido_paterno', TextType::class)
             ->add('apellido_materno', TextType::class)
-            ->add('rol', ChoiceType::class, array(
-                'choices'=> array(
-                    'Seleccione un tipo de usuario' => null,
-                    'Administrador' => 'ROLE_ADMIN',
-                    'Usuario' => 'ROLE_USER'
-                )
-            ))
             ->add('email', EmailType::class)
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,

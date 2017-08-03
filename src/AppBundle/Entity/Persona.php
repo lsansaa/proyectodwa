@@ -62,7 +62,6 @@ class Persona implements AdvancedUserInterface, \Serializable
 
     /**
      * @var string
-     * @Assert\NotBlank()
      * @ORM\Column(name="rol", type="string", length=255, nullable=false)
      */
     private $rol;
