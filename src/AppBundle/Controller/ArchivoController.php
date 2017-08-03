@@ -88,8 +88,8 @@ class ArchivoController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($archivo);
             $em->flush();
-
-            $this->sendFeed($persona, $archivo, "Se creo el archivo ".$archivo->getNombre());
+            //se crea el feed correspondiente a la creación del archivo
+            $this->sendFeed($persona, $archivo, "Se creó el archivo ".$archivo->getNombre());
 
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the archivo
@@ -135,6 +135,13 @@ class ArchivoController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($archivo);
             $em->flush();
+            //se crea el feed correspondiente a la edición del archivo
+            $usuario = $this->getDoctrine()
+                ->getRepository(Persona::class)
+                ->find(array(
+                    "rut"=>$this->getUser()
+                ));
+            $this->sendFeed($usuario, $archivo, "Se editó el archivo ".$archivo->getNombre());
 
             $response = new JsonResponse();
             $response->setStatusCode(200);
@@ -208,7 +215,14 @@ class ArchivoController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($archivo);
             $em->flush();
-
+            //se crea el feed correspondiente a la eliminación del archivo
+            $usuario = $this->getDoctrine()
+                ->getRepository(Persona::class)
+                ->find(array(
+                    "rut"=>$this->getUser()
+                ));
+            $this->sendFeed($usuario, $archivo, "Se eliminó el archivo ".$archivo->getNombre());
+            //se crea y envia el response
             $response = new JsonResponse();
             $response->setStatusCode(200);
             $response->setData(array(

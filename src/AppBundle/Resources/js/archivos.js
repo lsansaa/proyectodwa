@@ -1,5 +1,7 @@
 $( document ).ready(function() {
     $(".btnEdit").click(function(){
+        var path = $("#tbody").attr('data-pathEditar');
+
         var tempid = this.id;
         var id = tempid.split("_")[1];
         var estadoEdicion = $(this).attr('data-editing');
@@ -52,21 +54,21 @@ $( document ).ready(function() {
             $(span).attr('class','glyphicon glyphicon-pencil text-warning');
             $(this).attr('data-editing', '0');
 
-            editarArchivo(id, nombreText, estadoText);
+            editarArchivo(id, nombreText, estadoText, path);
         }
 
 
     });
-
     $(".btnDelete").click(function(){
         var tempid = this.id;
         var id = tempid.split("_")[1];
+        var path = $("#tbody").attr('data-pathEliminar');
         $("#"+id).remove();
-        eliminarArchivo(id);
+        eliminarArchivo(id, path);
     });
 });
 
-function editarArchivo(id_archivo, nombreArchivo, estadoArchivo){
+function editarArchivo(id_archivo, nombreArchivo, estadoArchivo, path){
     $.ajax({
         type: "POST",
         url: "/archivo/editar/",
@@ -76,7 +78,7 @@ function editarArchivo(id_archivo, nombreArchivo, estadoArchivo){
     });
 }
 
-function eliminarArchivo(id_archivo){
+function eliminarArchivo(id_archivo, path){
 
     $.ajax({
         type: "POST",

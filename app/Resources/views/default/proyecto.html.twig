@@ -58,9 +58,7 @@
                             {% endif %}
                         </tr>
                     </thead>
-                    <tbody id="tbody"
-                           data-pathEditar="{{ path ('editar_archivo') }}"
-                           data-pathEliminar="{{ path ('eliminar_archivo') }}">
+                    <tbody id="tbody">
                         {% if archivos is defined and archivos is not empty  %}
                             {% for archivo in archivos %}
                                 <tr id={{ archivo.id }}>
