@@ -22,37 +22,31 @@ class ProyectoTrabajador
     private $id;
 
     /**
-     * @var string
-     *
      * One ProyectoTrabajador has One Persona
-     * @ORM\OneToOne(targetEntity="Persona")
+     * @ORM\ManyToOne(targetEntity="Persona")
      * @ORM\JoinColumn(name="rut_trabajador", referencedColumnName="rut")
      */
     private $rut_trabajador;
 
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_proyecto", type="integer")
-     * One ProyectoTrabajador has One Proyecto
-     * @ORM\OneToOne(targetEntity="Proyecto")
+     * @ORM\ManyToOne(targetEntity="Proyecto")
      * @ORM\JoinColumn(name="id_proyecto", referencedColumnName="id")
      */
     private $id_proyecto;
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getRutTrabajador(): string
+    public function getRutTrabajador()
     {
         return $this->rut_trabajador;
     }
 
     /**
-     * @param string $rut_trabajador
+     * @param mixed $rut_trabajador
      */
-    public function setRutTrabajador(string $rut_trabajador)
+    public function setRutTrabajador($rut_trabajador)
     {
         $this->rut_trabajador = $rut_trabajador;
     }
@@ -69,11 +63,19 @@ class ProyectoTrabajador
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getIdProyecto(): int
+    public function getIdProyecto()
     {
         return $this->id_proyecto;
+    }
+
+    /**
+     * @param mixed $id_proyecto
+     */
+    public function setIdProyecto($id_proyecto)
+    {
+        $this->id_proyecto = $id_proyecto;
     }
 
 }

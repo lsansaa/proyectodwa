@@ -17,17 +17,17 @@
                     </thead>
                     <tbody>
                     {% for trabajador in trabajadores %}
+                        {{ form_start(form) }}
                         <tr>
                             <td>{{ trabajador.rut}}</td>
                             <td>{{ trabajador.nombre }}</td>
                             <td>{{ trabajador.apellido_paterno }}</td>
                             <td>{{ trabajador.apellido_materno }}</td>
-                            <td>
-                            <a class="btn btn-info btn-default" href="{{ path('asignar_trabajador2', {'id_proyecto': idproyecto, 'rut_trabajador': trabajador.rut }) }}">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </a>
-                            </td>
+                            <input type="hidden"  name="ruttrabajador" value="{{ trabajador.rut }}">
+                            <input type="hidden" name="idproyecto" value=" {{ idproyecto }}">
+                            <td><button type="submit" class="btn btn-primary ">Registrar</button></td>
                         </tr>
+                        {{ form_end(form) }}
                     {% endfor %}
                     </tbody>
                 </table>
