@@ -119,40 +119,6 @@ function validarPassword(password){
 function validarEmail(password){
     return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(password)
 }
-function validarRut(rut){
-    if ( rut.length < 8 ){ return false; }
-
-    rut = rut.replace('-','')
-    rut = rut.replace(/\./g,'')
-
-    var suma = 0;
-    var caracteres = "1234567890kK";
-    var contador = 0;
-    for (var i=0; i < rut.length; i++){
-
-        u = rut.substring(i, i + 1);
-        if (caracteres.indexOf(u) != -1)
-            contador ++;
-    }
-    if ( contador==0 ) { return false }
-
-    var rut = rut.substring(0,rut.length-1)
-    var drut = rut.substring( rut.length-1 )
-    var dvr = '0';
-    var mul = 2;
-
-    for (i= rut.length -1 ; i >= 0; i--) {
-        suma = suma + rut.charAt(i) * mul
-        if (mul == 7) 	mul = 2
-        else	mul++
-    }
-    res = suma % 11
-    if (res==1)		dvr = 'k'
-    else if (res==0) dvr = '0'
-    else {
-        dvi = 11-res
-        dvr = dvi + ""
-    }
-    if ( dvr != drut.toLowerCase() ) { return false; }
-    else { return true; }
+function validarRut(b){
+    if(b.match(/^([0-9])+\-([kK0-9])+$/)){b=b.split("-");var a=b[0].split(""),c=2,d=0;for(i=a.length-1;0<=i;i--)c=7<c?2:c,d+=parseInt(a[i])*parseInt(c++);a=11-d%11;return(11==a?0:10==a?"k":a)==b[1].toLowerCase()}return!1
 }
