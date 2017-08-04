@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Archivo;
 use AppBundle\Entity\Persona;
 use AppBundle\Entity\Proyecto;
+use AppBundle\Entity\Feed;
 use AppBundle\Form\ArchivoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,6 +27,13 @@ class ArchivoController extends Controller {
      * @Route("/registrar_archivo/{id_proyecto}", name="registrar_archivo")
      */
     public function registrarArchivo(Request $request, $id_proyecto){
+
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
 
         //(0) Obtener usuario de la sesión y proyecto del archivo
         $persona = $this->getDoctrine()
@@ -80,6 +88,8 @@ class ArchivoController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($archivo);
             $em->flush();
+            //se crea el feed correspondiente a la creación del archivo
+            $this->sendFeed($persona, $archivo, "Se creó el archivo ".$archivo->getNombre());
 
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the archivo
@@ -99,8 +109,16 @@ class ArchivoController extends Controller {
      * @Route ("/archivo/editar/", name="editar_archivo")
      *
      */
-    public function verArchivo(Request $request)
+    public function editarArchivo(Request $request)
     {
+
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
+
         if($request->isXmlHttpRequest())
         {
             $id = $request->request->get('id');
@@ -117,6 +135,13 @@ class ArchivoController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($archivo);
             $em->flush();
+            //se crea el feed correspondiente a la edición del archivo
+            $usuario = $this->getDoctrine()
+                ->getRepository(Persona::class)
+                ->find(array(
+                    "rut"=>$this->getUser()
+                ));
+            $this->sendFeed($usuario, $archivo, "Se editó el archivo ".$archivo->getNombre());
 
             $response = new JsonResponse();
             $response->setStatusCode(200);
@@ -139,6 +164,14 @@ class ArchivoController extends Controller {
      *
      */
     public function descargarArchivo(Request $request, $id_archivo){
+
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
+
         //0) Se obtiene el archivo con la id
         $archivo = $this->getDoctrine()
             ->getRepository(Archivo::class)
@@ -161,6 +194,14 @@ class ArchivoController extends Controller {
      */
     public function eliminarArchivo(Request $request)
     {
+
+        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            throw $this->createAccessDeniedException();
+
+        }
+
         if($request->isXmlHttpRequest())
         {
             $id = $request->request->get('id');
@@ -174,7 +215,14 @@ class ArchivoController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($archivo);
             $em->flush();
-
+            //se crea el feed correspondiente a la eliminación del archivo
+            $usuario = $this->getDoctrine()
+                ->getRepository(Persona::class)
+                ->find(array(
+                    "rut"=>$this->getUser()
+                ));
+            $this->sendFeed($usuario, $archivo, "Se eliminó el archivo ".$archivo->getNombre());
+            //se crea y envia el response
             $response = new JsonResponse();
             $response->setStatusCode(200);
             $response->setData(array(
@@ -190,4 +238,25 @@ class ArchivoController extends Controller {
         return $response;
 
     }
+
+    /**
+     * @param Persona $usuario
+     * @param Archivo $archivo
+     * @param $mensaje
+     */
+    public function sendFeed(Persona $usuario, Archivo $archivo, $mensaje){
+
+        //(1) se crea el feed
+        $newFeed = new Feed();
+        //(2) se definen sus valores
+        $newFeed->setRutUsuario($usuario);
+        $newFeed->setIdArchivo($archivo);
+        $newFeed->setDescripcion($mensaje);
+        //(3) se guarda en la base de datos
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($newFeed);
+        $em->flush();
+
+    }
+
 }

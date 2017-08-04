@@ -29,15 +29,16 @@ class PersonaRepository extends EntityRepository implements UserLoaderInterface
         ;
 
         try {
+
             // The Query::getSingleResult() method throws an exception
             // if there is no record matching the criteria.
             $user = $q->getSingleResult();
+
         } catch (NoResultException $e) {
-            $message = sprintf(
-                'Unable to find an active admin AcmeUserBundle:User object identified by "%s".',
-                $username
-            );
-            throw new UsernameNotFoundException($message, null, 0, $e);
+
+            $message = sprintf('Unable to find an active admin AcmeUserBundle:User object identified by "%s".', $username);
+            return null;
+            //throw new UsernameNotFoundException($message, null, 0, $e);
         }
 
         return $user;

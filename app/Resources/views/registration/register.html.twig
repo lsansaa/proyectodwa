@@ -9,21 +9,95 @@
             </div>
             {% block form_start -%}
                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
-                    <div class="form-group">
-                        {{ form_row(form.rut) }}
-                        {{ form_row(form.nombre) }}
-                        {{ form_row(form.apellido_paterno) }}
-                        {{ form_row(form.apellido_materno) }}
-                        {{ form_row(form.rol) }}
-                        {{ form_row(form.email) }}
-                        {{ form_row(form.plainPassword.first) }}
-                        {{ form_row(form.plainPassword.second) }}
+                        <div class="form-group">
+                            {{ form_label(form.rut) }}
+                            {{ form_errors(form.rut) }}
+                            <div class="input-group">
+                                <div class="input-group-addon" id="rut-addon">
+                                    <span></span>
+                                </div>
+                                {{ form_widget(form.rut,{'attr': {
+                                    'aria-describedby': 'rut-addon',
+                                    'class': 'soloRut'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.nombre) }}
+                            {{ form_errors(form.nombre) }}
+                            <div class="input-group">
+                                <div class="input-group-addon" id="rut-addon">
+                                    <span></span>
+                                </div>
+                                {{ form_widget(form.nombre,{'attr': {
+                                    'aria-describedby': 'nombre-addon',
+                                    'class': 'soloTexto'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.apellido_paterno) }}
+                            {{ form_errors(form.apellido_paterno) }}
+                            <div class="input-group">
+                                <div class="input-group-addon" id="rut-addon">
+                                    <span></span>
+                                </div>
+                                {{ form_widget(form.apellido_paterno,{'attr': {
+                                    'aria-describedby': 'apellido_paterno-addon',
+                                    'class': 'soloTexto'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.apellido_materno) }}
+                            {{ form_errors(form.apellido_materno) }}
+                            <div class="input-group">
+                                <div class="input-group-addon" id="rut-addon">
+                                    <span></span>
+                                </div>
+                                {{ form_widget(form.apellido_materno,{'attr': {'aria-describedby': 'apellido_materno-addon',
+                                    'class': 'soloTexto'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.email) }}
+                            {{ form_errors(form.email) }}
+                            <div class="input-group">
+                                <div class="input-group-addon" id="rut-addon">
+                                    <span></span>
+                                </div>
+                                {{ form_widget(form.email,{'attr': {
+                                    'aria-describedby': 'email-addon',
+                                    'class': 'soloEmail'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.plainPassword.first) }}
+                            {{ form_errors(form.plainPassword.first) }}
+                            <div class="input-group">
+                                <div class="input-group-addon" id="rut-addon">
+                                    <span></span>
+                                </div>
+                                {{ form_widget(form.plainPassword.first,{'attr': {
+                                    'aria-describedby': 'password_firts-addon',
+                                    'class': 'soloPassword'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.plainPassword.second) }}
+                            {{ form_errors(form.plainPassword.second) }}
+                            <div class="input-group">
+                                <div class="input-group-addon" id="rut-addon">
+                                    <span></span>
+                                </div>
+                                {{ form_widget(form.plainPassword.second,{'attr': {
+                                    'aria-describedby': 'password_second-addon',
+                                    'class': 'soloPasswordRepetido'}}) }}
+                            </div>
+                        </div>
 
                     {% block button_widget -%}
-                        <button type="submit" class="btn btn-primary ">Registrar</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
                     {%- endblock %}
-                    </div>
                 {{ form_end(form) }}
             {%- endblock form_start %}
         </div>

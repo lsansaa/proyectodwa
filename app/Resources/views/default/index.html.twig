@@ -1,31 +1,76 @@
-{% extends 'base.html.twig' %}
+{% extends 'base3.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <h2>¿Que hay de nuevo?</h2>
-        <p>Lista de Feeds</p>
-        {{ form_start(form, {'method': 'POST'}) }}
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Usuario</th>
-                <th>Descripción</th>
-                <th>Fecha</th>
-            </tr>
+<div class="row">
+    <div class="col-md-3 bg-info">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1>Proyectos</h1>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <thead class="panel-heading">
+                <th class="panel-title">
+                        <h3 class="form-signin-heading">
+                            Lista Proyectos
+                        </h3>
+                </th>
+
             </thead>
             <tbody>
-            {% for feed in feeds %}
-                <tr>
-                    <td>{{ feed.id }}</td>
-                    <td>{{ feed.rutusuario }}</td>
-                    <td>{{ feed.descripcion }}</td>
-                    <td>{{ feed.fecha|date('Y-m-d') }}</td>
-                </tr>
-            {% endfor %}
+            <!-- Main Menu -->
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            <td>
+                                <a class="btn btn-info" href="{{ path('registrar_proyecto') }}" >
+                                    <span class="glyphicon glyphicon-plus"></span> Agregar Proyecto
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% for proyecto in proyectos %}
+                        <tr>
+                            <td>
+                             <a href="{{ path('detalle_proyecto', {'id_proyecto': proyecto.id}) }}">{{ proyecto.nombre }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
             </tbody>
         </table>
-        {{ form_end(form) }}
+
     </div>
+    <div class="col-md-9">
+        <div class="main-login main-center">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h1>¿Que hay de nuevo?</h1>
+                </div>
+            </div>
+            <div class="page-header">
+                <h2>Lista de Feeds</h2>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nombre Archivo</th>
+                    <th>Usuario</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for feed in feeds %}
+                    <tr>
+                        <td>{{ feed.idarchivo.nombre }}</td>
+                        <td>{{ feed.rutusuario.rut }}</td>
+                        <td>{{ feed.descripcion }}</td>
+                        <td>{{ feed.fecha|date('Y-m-d') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
 

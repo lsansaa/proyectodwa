@@ -18,7 +18,33 @@
                 <h2>Representante Legal</h2>
             </div>
             <p>Nombre: {{ proyecto.rutrepresentante.nombre }}</p>
-            <p>Rut: {{ proyecto.rutdirector.rut}}</p>
+            <p>Rut: {{ proyecto.rutrepresentante.rut}}</p>
+            <div class="page-header">
+                <h2>Trabajadores</h2>
+            </div>
+            <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Apellido paterno</th>
+                <th>Apellido materno</th>
+            </tr>
+            </thead>
+                <tbody>
+            {% for trabajador in trabajadores %}
+                <tr>
+                    <td>{{ trabajador.rut}}</td>
+                    <td>{{ trabajador.nombre }}</td>
+                    <td>{{ trabajador.apellidopaterno }}</td>
+                    <td>{{ trabajador.apellidomaterno }}</td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-info btn-default" href="{{ path('asignar_trabajador', {'id_proyecto': proyecto.id}) }}">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
             <div class="page-header">
                 <h2>Archivos</h2>
             </div>
@@ -29,13 +55,13 @@
                             <th>Nombre</th>
                             <th>Estado</th>
                             <th>Descargar</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            {% endif %}
                         </tr>
                     </thead>
-                    <tbody id="tbody"
-                           data-pathEditar="{{ path ('editar_archivo') }}"
-                           data-pathEliminar="{{ path ('eliminar_archivo') }}">
+                    <tbody id="tbody">
                         {% if archivos is defined and archivos is not empty  %}
                             {% for archivo in archivos %}
                                 <tr id={{ archivo.id }}>
@@ -50,33 +76,40 @@
                                             <span class="glyphicon glyphicon-download-alt text-info"></span>
                                         </a>
                                     </td>
-                                    <td>
-                                        <button id="btnEdit_{{ archivo.id }}" class="btnEdit btn-link" href="#" data-editing = "0">
-                                            <span id="spnEdit_{{ archivo.id }}" class="glyphicon glyphicon-pencil text-warning"></span>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button id="btnDelete_{{ archivo.id }}" class="btnDelete btn-link" href="#">
-                                            <span class="glyphicon glyphicon-remove text-danger"></span>
-                                        </button>
-                                    </td>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <td>
+                                            <button id="btnEdit_{{ archivo.id }}" class="btnEdit btn-link" href="#" data-editing = "0">
+                                                <span id="spnEdit_{{ archivo.id }}" class="glyphicon glyphicon-pencil text-warning"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button id="btnDelete_{{ archivo.id }}" class="btnDelete btn-link" href="#">
+                                                <span class="glyphicon glyphicon-remove text-danger"></span>
+                                            </button>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                         {% endif %}
                     </tbody>
                 </table>
-                <a class="btn btn-info btn-default" href="{{ path('registrar_archivo', {'id_proyecto': proyecto.id}) }}">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-info btn-default" href="{{ path('registrar_archivo', {'id_proyecto': proyecto.id}) }}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+
+                {% endif %}
+
             </div>
         </div>
     </div>
 
 {% endblock %}
 {% block javascripts %}
-    {% javascripts
-    '@AppBundle/Resources/js/archivos.js'
-    '@AppBundle/Resources/js/*' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+        {% javascripts
+        '@AppBundle/Resources/js/archivos.js'
+        '@AppBundle/Resources/js/*' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
 {% endblock %}

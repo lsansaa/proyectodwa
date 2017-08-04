@@ -71,7 +71,7 @@ $( document ).ready(function() {
 function editarArchivo(id_archivo, nombreArchivo, estadoArchivo, path){
     $.ajax({
         type: "POST",
-        url: path,
+        url: "/archivo/editar/",
         dataType: "json",
         data: {id: id_archivo, nombre: nombreArchivo, estado: estadoArchivo},
         success :  console.log("Cambios hechos")
@@ -82,7 +82,7 @@ function eliminarArchivo(id_archivo, path){
 
     $.ajax({
         type: "POST",
-        url: path,
+        url: "/archivo/eliminar/",
         dataType: "json",
         data: {id: id_archivo},
         success :  console.log("Archivo eliminado")

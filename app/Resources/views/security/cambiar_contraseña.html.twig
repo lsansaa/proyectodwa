@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="main-login main-center">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="form-signin-heading text-center">Cambio de contraseña</h1>
+                {% if password_error is defined %}
+                    <h3><span class="label label-danger">{{ password_error }}</span></h3>
+                {% endif %}
+            </div>
+        </div>
+        {% block form_start -%}
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_row(form.old_password) }}
+                <div class="form-group">
+                    {{ form_label(form.new_password.first) }}
+                    {{ form_errors(form.new_password.first) }}
+                    <div class="input-group">
+                        <div class="input-group-addon" id="new_password_firts-addon">
+                            <span></span>
+                        </div>
+                        {{ form_widget(form.new_password.first,{'attr': {
+                            'aria-describedby': 'new_password_firts-addon',
+                            'class': 'soloPassword'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.new_password.second) }}
+                    {{ form_errors(form.new_password.second) }}
+                    <div class="input-group">
+                        <div class="input-group-addon" id="new_password_second-addon">
+                            <span></span>
+                        </div>
+                        {{ form_widget(form.new_password.second,{'attr': {
+                            'aria-describedby': 'new_password_second-addon',
+                            'class': 'soloPasswordRepetido'}}) }}
+                    </div>
+                </div>
+            {% block button_widget -%}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            {%- endblock %}
+            {{ form_end(form) }}
+        {%- endblock form_start %}
+    </div>
+</div>
+{% endblock %}
