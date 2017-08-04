@@ -37,7 +37,7 @@ class PersonaRepository extends EntityRepository implements UserLoaderInterface
         } catch (NoResultException $e) {
 
             $message = sprintf('Unable to find an active admin AcmeUserBundle:User object identified by "%s".', $username);
-            return $this->redirect('/login');
+            return null;
             //throw new UsernameNotFoundException($message, null, 0, $e);
         }
 

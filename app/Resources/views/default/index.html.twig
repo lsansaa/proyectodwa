@@ -1,44 +1,45 @@
 {% extends 'base3.html.twig' %}
 
 {% block body %}
-<div>
-    <div class="side-menu">
-        <div class="navbar navbar-default" role="navigation">
-            <div class="navbar-header">
-                <div class="brand-wrapper">
-                    <div class="brand-name-wrapper">
-                        <div class="navbar-brand">
-                            Proyectos
-                        </div>
-
-                    </div>
-
-                </div>
-
+<div class="row">
+    <div class="col-md-3 bg-info">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1>Proyectos</h1>
             </div>
+        </div>
+        <table class="table table-hover">
+            <thead class="panel-heading">
+                <th class="panel-title">
+                        <h3 class="form-signin-heading">
+                            Lista Proyectos
+                        </h3>
+                </th>
 
+            </thead>
+            <tbody>
             <!-- Main Menu -->
-            <div class="side-menu-container">
-                <ul class="nav navbar-nav">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <li>
-                            <a href="{{ path('registrar_proyecto') }}" >
-                                <span class="glyphicon glyphicon-plus"></span> Agregar Proyecto
-                            </a>
-                        </li>
+                        <tr>
+                            <td>
+                                <a class="btn btn-info" href="{{ path('registrar_proyecto') }}" >
+                                    <span class="glyphicon glyphicon-plus"></span> Agregar Proyecto
+                                </a>
+                            </td>
+                        </tr>
                     {% endif %}
                     {% for proyecto in proyectos %}
-                        <li>
-                            <a href="{{ path('detalle_proyecto', {'id_proyecto': proyecto.id}) }}">{{ proyecto.nombre }}</a>
-                        </li>
+                        <tr>
+                            <td>
+                             <a href="{{ path('detalle_proyecto', {'id_proyecto': proyecto.id}) }}">{{ proyecto.nombre }}</a>
+                            </td>
+                        </tr>
                     {% endfor %}
-
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div>
+            </tbody>
+        </table>
 
     </div>
-    <div class="side-body">
+    <div class="col-md-9">
         <div class="main-login main-center">
             <div class="panel-heading">
                 <div class="panel-title text-center">
