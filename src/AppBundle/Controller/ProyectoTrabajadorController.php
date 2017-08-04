@@ -48,8 +48,13 @@ class ProyectoTrabajadorController extends Controller {
             $idproyecto = $request->request->get('idproyecto');
             $ruttrabajador = $request->request->get('ruttrabajador');
 
-            $proyecto = $em->createQuery('SELECT p FROM AppBundle:Proyecto p WHERE p.id = :id')->setParameter('id',$idproyecto);
-            $trabajador = $em->createQuery('SELECT t FROM AppBundle:Persona t WHERE t.rut = :rut')->setParameter('rut',$ruttrabajador);
+            $query = $em->createQuery('SELECT p FROM AppBundle:Proyecto p WHERE p.id = :id')->setParameter('id',$idproyecto);
+            $objeto = $query->getResult();
+            $proyecto = $objeto[0];
+
+            $query = $em->createQuery('SELECT t FROM AppBundle:Persona t WHERE t.rut = :rut')->setParameter('rut',$ruttrabajador);
+            $objeto = $query->getResult();
+            $trabajador = $objeto[0];
 
             $proyectotrabajador = new ProyectoTrabajador();
             $proyectotrabajador->setIdProyecto($proyecto);
