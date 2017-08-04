@@ -42,17 +42,17 @@ class ProyectoTrabajador
     private $id_proyecto;
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getRutTrabajador(): string
+    public function getRutTrabajador()
     {
         return $this->rut_trabajador;
     }
 
     /**
-     * @param string $rut_trabajador
+     * @param mixed $rut_trabajador
      */
-    public function setRutTrabajador(string $rut_trabajador)
+    public function setRutTrabajador($rut_trabajador)
     {
         $this->rut_trabajador = $rut_trabajador;
     }
@@ -69,11 +69,19 @@ class ProyectoTrabajador
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getIdProyecto(): int
+    public function getIdProyecto()
     {
         return $this->id_proyecto;
+    }
+
+    /**
+     * @param mixed $id_proyecto
+     */
+    public function setIdProyecto($id_proyecto)
+    {
+        $this->id_proyecto = $id_proyecto;
     }
 
 }
