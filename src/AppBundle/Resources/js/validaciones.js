@@ -1,117 +1,113 @@
 $( document ).ready(function() {
     $(".soloTexto").bind('blur',function(){
-        var span = $(this).siblings("div[class=input-group-addon]").find('span');
         var value = this.value
         var noSpaces = value.replace(/\s/g, "");
         if (/^[ a-záéíóúüñ]*$/i.test(value)&&noSpaces.length>0) {
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-success');
-            span.attr('class','glyphicon glyphicon-ok');
-            this.setCustomValidity("");
+                var parent = $(this).parent();
+                parent.attr('class','input-group has-success');
+                this.setCustomValidity("");
 
         }else if(noSpaces.length==0){
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group')
-            span.attr('class','');
-            this.setCustomValidity("Campo vacío");
+            var parent = $(this).parent();
+            parent.attr('class','input-group');
+            this.setCustomValidity("");
         }else{
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-error')
-            span.attr('class','glyphicon glyphicon-remove');
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-error');
             this.setCustomValidity("Campo no válido");
-            $(' button[type=submit]').trigger('click');
+        }
+        if (!this.checkValidity()){
+            //console.log('Error handling');
+            //document.getElementById("demo").innerHTML = this.validationMessage;
         }
     });
     $(".soloRut").bind('blur',function(){
-        var span = $(this).siblings("div[class=input-group-addon]").find('span');
         var rut = this.value
         var noSpaces = rut.replace(/\s/g, "");
         if(validarRut(rut)){
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-success');
-            span.attr('class','glyphicon glyphicon-ok');
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-success');
             this.setCustomValidity("");
         }
         else if(noSpaces.length==0){
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group')
-            span.attr('class','');
-            this.setCustomValidity("Campo vacío");
+            var parent = $(this).parent();
+            parent.attr('class','input-group');
+            this.setCustomValidity("");
         }else{
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-error')
-            span.attr('class','glyphicon glyphicon-remove');
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-error');
             this.setCustomValidity("RUT no valido");
-            $(' button[type=submit]').trigger('click');
+        }
+        if (!this.checkValidity()){
+            //console.log('Error handling');
+            //document.getElementById("demo").innerHTML = this.validationMessage;
         }
     });
     $(".soloPassword").bind('blur',function(){
-        var span = $(this).siblings("div[class=input-group-addon]").find('span');
         var password = this.value
         var noSpaces = password.replace(/\s/g, "");
         if(validarPassword(password)){
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-success');
-            span.attr('class','glyphicon glyphicon-ok');
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-success');
             this.setCustomValidity("");
         }
         else if(noSpaces.length==0){
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group')
-            span.attr('class','');
-            this.setCustomValidity("Campo vacío");
+            var parent = $(this).parent();
+            parent.attr('class','input-group');
+            this.setCustomValidity("");
         }else{
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-error')
-            span.attr('class','glyphicon glyphicon-remove');
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-error');
             this.setCustomValidity("Contraseña no válida");
-            $(' button[type=submit]').trigger('click');
+        }
+        if (!this.checkValidity()){
+            //console.log('Error handling');
+            //document.getElementById("demo").innerHTML = this.validationMessage;
         }
     });
     $(".soloPasswordRepetido").bind('blur',function(){
-        var span = $(this).siblings("div[class=input-group-addon]").find('span');
         var password = document.getElementsByClassName('soloPassword')[0].value;
         var passwordRepetido = this.value
         var noSpaces = passwordRepetido.replace(/\s/g, "");
         if(noSpaces.length==0){
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group')
-            span.attr('class','');
-            this.setCustomValidity("Campo vacío");
+            var parent = $(this).parent();
+            parent.attr('class','input-group');
+            this.setCustomValidity("");
         }else if(password==passwordRepetido){
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-success');
-            span.attr('class','glyphicon glyphicon-ok');
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-success');
             this.setCustomValidity("");
         }else{
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-error')
-            span.attr('class','glyphicon glyphicon-remove');
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-error');
             this.setCustomValidity("Las contraseñas no coinciden");
-            $(' button[type=submit]').trigger('click');
+        }
+        if (!this.checkValidity()){
+            //console.log('Error handling');
+            //document.getElementById("demo").innerHTML = this.validationMessage;
         }
     });
     $(".soloEmail").bind('blur',function(){
-        var span = $(this).siblings("div[class=input-group-addon]").find('span');
-        var email = this.value
+        var email = this.value;
         var noSpaces = email.replace(/\s/g, "");
         if(noSpaces.length==0){
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-error')
-            span.attr('class','');
-            this.setCustomValidity("Campo vacío");
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-error');
+            this.setCustomValidity("");
         }else if(validarEmail(email)){
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-success');
-            span.attr('class','glyphicon glyphicon-ok');
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-success');
             this.setCustomValidity("");
         }else{
-            var parent = $(this).parent().parent();
-            parent.attr('class','form-group has-error')
-            span.attr('class','glyphicon glyphicon-remove');
+            var parent = $(this).parent();
+            parent.attr('class','input-group has-error');
             this.setCustomValidity("Correo no válido");
-            $(' button[type=submit]').trigger('click');
         }
+        if (!this.checkValidity()){
+            //console.log('Error handling');
+            //document.getElementById("demo").innerHTML = this.validationMessage;
+        }
+
     });
 });
 function validarPassword(password){
