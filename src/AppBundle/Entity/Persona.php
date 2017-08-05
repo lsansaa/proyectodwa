@@ -51,7 +51,12 @@ class Persona implements AdvancedUserInterface, \Serializable
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\Length(
+     *     min = 8,
+     *     max=4096,
+     *     minMessage="Su contraseña debe tener al menos {{ limit }} caracteres",
+     *     maxMessage="Su contraseña no puede tener más de {{ limit }} caracteres"
+     * )
      */
     private $plainPassword;
     /**

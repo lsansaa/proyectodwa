@@ -20,10 +20,12 @@ class PersonaRepository extends EntityRepository implements UserLoaderInterface
 
     public function loadUserByUsername($username)
     {
+        $rutLimpio = preg_replace('/[.-]/', '', $username);
+        $rutLimpio = str_replace(' ','', $rutLimpio);
         $q = $this
             ->createQueryBuilder('u')
             ->where('u.rut = :rut OR u.email = :email')
-            ->setParameter('rut', $username)
+            ->setParameter('rut', $rutLimpio)
             ->setParameter('email', $username)
             ->getQuery()
         ;

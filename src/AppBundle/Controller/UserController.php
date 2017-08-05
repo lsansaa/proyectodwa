@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class UserController extends Controller {
 
     /**
-     * @Route("/register", name="user_registration")
+     * @Route("/usuarios/registro", name="user_registration")
      *
      */
     public function registrarUsuario(Request $request,UserPasswordEncoderInterface $encoder){
@@ -41,7 +41,13 @@ class UserController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            //obtener RUT
+            $rut = $user->getRut();
+            //eliminar puntos, guiones y espacios
+            $rutLimpio = preg_replace('/[.-]/', '', $rut);
+            $rutLimpio = str_replace(' ','', $rutLimpio);
+            //guardar rut
+            $user->setRut($rutLimpio);
             // 3) codificar password)
             $password = $encoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);

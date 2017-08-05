@@ -27,13 +27,13 @@ class PersonaType extends AbstractType
                 'attr' => ['pattern' => '[0-9\-\.kK]*']
             ))
             ->add('nombre', TextType::class, array(
-                'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]*']
+                'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]\s+*']
             ))
             ->add('apellido_paterno', TextType::class, array(
-                'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]*']
+                'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]\s+*']
             ))
             ->add('apellido_materno', TextType::class, array(
-                'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]*']
+                'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]\s+*']
             ))
             ->add('email', EmailType::class)
 
