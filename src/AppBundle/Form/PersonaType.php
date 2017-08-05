@@ -36,6 +36,7 @@ class PersonaType extends AbstractType
                 'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]*']
             ))
             ->add('email', EmailType::class)
+
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'     => array('label' => 'Contraseña'),
