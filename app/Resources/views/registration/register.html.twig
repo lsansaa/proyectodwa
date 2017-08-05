@@ -10,6 +10,7 @@
             {% block form_start -%}
                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                         <div class="form-group row">
+                            {{ form_label(form.rut) }}
                             {{ form_errors(form.rut) }}
                             <div class="input-group col-sm-4">
                                 <div class="input-group-addon" id="rut-addon">

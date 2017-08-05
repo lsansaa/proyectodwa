@@ -115,7 +115,6 @@ $( document ).ready(function() {
     });
 });
 function validarPassword(password){
-    //return true;
     return /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8}$/i.test(password)
 }
 function validarEmail(password){
