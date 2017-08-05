@@ -9,10 +9,9 @@
             </div>
             {% block form_start -%}
                 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-                        <div class="form-group">
-                            {{ form_label(form.rut) }}
+                        <div class="form-group row">
                             {{ form_errors(form.rut) }}
-                            <div class="input-group">
+                            <div class="input-group col-sm-4">
                                 <div class="input-group-addon" id="rut-addon">
                                     <span></span>
                                 </div>
@@ -21,10 +20,10 @@
                                     'class': 'soloRut'}}) }}
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             {{ form_label(form.nombre) }}
                             {{ form_errors(form.nombre) }}
-                            <div class="input-group">
+                            <div class="input-group col-sm-4">
                                 <div class="input-group-addon" id="rut-addon">
                                     <span></span>
                                 </div>
@@ -33,10 +32,10 @@
                                     'class': 'soloTexto'}}) }}
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             {{ form_label(form.apellido_paterno) }}
                             {{ form_errors(form.apellido_paterno) }}
-                            <div class="input-group">
+                            <div class="input-group  col-sm-4">
                                 <div class="input-group-addon" id="rut-addon">
                                     <span></span>
                                 </div>
@@ -45,10 +44,10 @@
                                     'class': 'soloTexto'}}) }}
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             {{ form_label(form.apellido_materno) }}
                             {{ form_errors(form.apellido_materno) }}
-                            <div class="input-group">
+                            <div class="input-group col-sm-4">
                                 <div class="input-group-addon" id="rut-addon">
                                     <span></span>
                                 </div>
@@ -56,10 +55,10 @@
                                     'class': 'soloTexto'}}) }}
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             {{ form_label(form.email) }}
                             {{ form_errors(form.email) }}
-                            <div class="input-group">
+                            <div class="input-group input-group col-sm-4">
                                 <div class="input-group-addon" id="rut-addon">
                                     <span></span>
                                 </div>
@@ -68,22 +67,28 @@
                                     'class': 'soloEmail'}}) }}
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             {{ form_label(form.plainPassword.first) }}
                             {{ form_errors(form.plainPassword.first) }}
-                            <div class="input-group">
-                                <div class="input-group-addon" id="rut-addon">
-                                    <span></span>
+                            <div class="input-group col-sm-4">
+                                <div class="input-group">
+                                    <div class="input-group-addon" id="rut-addon">
+                                        <span></span>
+                                    </div>
+                                    {{ form_widget(form.plainPassword.first,{'attr': {
+                                        'aria-describedby': 'password_firts-addon',
+                                        'class': 'soloPassword'}}) }}
                                 </div>
-                                {{ form_widget(form.plainPassword.first,{'attr': {
-                                    'aria-describedby': 'password_firts-addon',
-                                    'class': 'soloPassword'}}) }}
+                                <small id="password" class="form-text text-muted">
+                                    Su contraseña de tener al menos 8 caracteres. con al menos 1 letra,
+                                     1 número, 1 letra máyuscula, 1 letra minuscula y 1 caracter especial.
+                                </small>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             {{ form_label(form.plainPassword.second) }}
                             {{ form_errors(form.plainPassword.second) }}
-                            <div class="input-group">
+                            <div class="input-group col-sm-4">
                                 <div class="input-group-addon" id="rut-addon">
                                     <span></span>
                                 </div>

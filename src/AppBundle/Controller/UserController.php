@@ -111,7 +111,7 @@ class UserController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('/');
         }
 
         return $this->render(

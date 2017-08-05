@@ -104,6 +104,7 @@ $( document ).ready(function() {
             var parent = $(this).parent().parent();
             parent.attr('class','form-group has-success');
             span.attr('class','glyphicon glyphicon-ok');
+            this.setCustomValidity("");
         }else{
             var parent = $(this).parent().parent();
             parent.attr('class','form-group has-error')
