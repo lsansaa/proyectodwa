@@ -23,9 +23,7 @@ class ProyectoType extends AbstractType
         $directores = $options['directores'];
         $representantes = $options['representantes'];
 
-        $builder->add('nombre',TextType::class, array(
-                    'attr' => ['pattern' => '[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]*']
-                ))
+        $builder->add('nombre',TextType::class)
                 ->add('fecha_inicio',DateType::class)
                 ->add('fecha_termino',DateType::class)
                 ->add('rut_director',ChoiceType::class,array('choices'=> array_combine($directores,$directores)))
