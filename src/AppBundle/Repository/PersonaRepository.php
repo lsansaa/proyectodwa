@@ -17,6 +17,10 @@ use Doctrine\ORM\NoResultException;
 class PersonaRepository extends EntityRepository implements UserLoaderInterface
 {
 
+    /**
+     * @param string $username
+     * @return mixed|null
+     */
     public function loadUserByUsername($username)
     {
         $rutLimpio = preg_replace('/[.-]/', '', $username);

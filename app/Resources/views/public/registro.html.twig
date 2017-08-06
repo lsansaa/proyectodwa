@@ -1,11 +1,16 @@
 {% extends "base2.html.twig" %}
 
 {% block body %}
+
     <div class="container">
         <div class="col-lg-10 col-lg-offset-1">
             <div class="panel-heading">
                 <div class="panel-title text-center">
                     <h1 class="title">Registro de usuario</h1>
+                    {% if error is defined and error is not empty %}
+                        <h3><span class="label label-danger">{{ error.message }}</span></h3>
+                    {% endif %}
+
                 </div>
             </div>
             {% block form_start -%}

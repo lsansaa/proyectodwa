@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Persona;
+use Doctrine\DBAL\Driver\PDOException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,11 +54,33 @@ class DefaultController extends Controller
             }else{
                 $user->setRol("ROLE_USER");
             }
-            // 4) guardar el usuario
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            try{
+                // 4) guardar el usuario
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+            }
+            catch (\Exception $Exception){
+                switch (get_class($Exception)){
+                    case 'Doctrine\DBAL\Exception\UniqueConstraintViolationException':
 
+                        return $this->render(
+                            'public/registro.html.twig',
+                            array(
+                                'form' => $form->createView(),
+                                'error'=> $Exception)
+                        );
+                        break;
+                    default:
+                        return $this->render(
+                            'public/registro.html.twig',
+                            array(
+                                'form' => $form->createView(),
+                                'error'=> $Exception)
+                        );
+                        break;
+                }
+            }
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
