@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <center><h1>Asignación trabajador</h1></center>
+                <br><br>
+                <input type="text" id="myInput" class="busquedaNombreRut" data-table-id="myTable" placeholder="Búsqueda por Rut ...">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Rut</th>
+                        <th>Nombre</th>
+                        <th>Apellido paterno</th>
+                        <th>Apellido materno</th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    {% for trabajador in trabajadores %}
+                        <tr value="{{ trabajador.rut }}">
+                            <td>{{ trabajador.rut}}</td>
+                            <td>
+                                <span id="spanEditRol_{{ trabajador.rut }}">
+                                    {% if trabajador.rol == "ROLE_ADMIN" %}
+                                        Admin
+                                    {% else %}
+                                        User
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td>{{ trabajador.nombre }}</td>
+                            <td>{{ trabajador.apellidopaterno }}</td>
+                            <td>{{ trabajador.apellidomaterno }}</td>
+                            <input type="hidden"  name="ruttrabajador" value="{{ trabajador.rut }}">
+                            <td>
+                                <button data-rut="{{ trabajador.rut }}" class="btnEditarRol btn-sm btn-link" data-editing="0" href="#">
+                                    <span class="glyphicon glyphicon-pencil"> Editar Rol</span>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

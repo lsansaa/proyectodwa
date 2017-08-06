@@ -27,13 +27,6 @@ class SecurityController extends Controller
         // last username entered by the user
         $lastUsername = $authUtils->getLastUsername();
 
-        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que no se hayan autenticado
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-
-            return $this->redirect('/');
-
-        }
-
 
         if(!is_null($this->getUser())){
 

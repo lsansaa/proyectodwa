@@ -41,9 +41,9 @@ security:
                 target: /
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/, roles: ROLE_USER}
-        #- { path: ^/, roles: ROLE_ADMIN}
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+     #   - { path: ^/, roles: ROLE_USER}
+     #   - { path: ^/, roles: ROLE_ADMIN}
 
     encoders:
       AppBundle\Entity\Persona: bcrypt

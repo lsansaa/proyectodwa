@@ -27,13 +27,6 @@ class UserController extends Controller {
      */
     public function registrarUsuario(Request $request,UserPasswordEncoderInterface $encoder){
 
-        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-
-            throw $this->createAccessDeniedException();
-
-        }
-
         //(1) Se crea el form
         $user = new Persona();
         $form = $this->createForm(PersonaType::class , $user);
@@ -71,7 +64,7 @@ class UserController extends Controller {
         );
     }
     /**
-     * @Route("/cambiar_contraseña", name="cambiar_contraseña")
+     * @Route("/usuarios/cambiar_contraseña", name="cambiar_contrasenia")
      */
     public function cambiarContrasenia(Request $request,UserPasswordEncoderInterface $encoder)
     {
@@ -124,6 +117,51 @@ class UserController extends Controller {
             'security/cambiar_contraseña.html.twig',
             array('form' => $form->createView())
         );
+    }
+    /**
+     * @Route("/usuarios/editarroles", name="editar_roles")
+     */
+    public function editarRoles(Request $request){
+
+        $trabajadoresTemp = $this->getDoctrine()
+            ->getRepository(Persona::class)
+            ->findAll();
+        $trabajadores = array();
+
+        foreach ($trabajadoresTemp as $t){
+
+            array_push($trabajadores,$t);
+
+        }
+
+        return $this->render('security/editar_roles.html.twig', array(
+
+            'trabajadores' => $trabajadores
+
+        ));
+
+    }
+    /**
+     * @Route("/usuarios/editarrol", name="editar_rol")
+     */
+    public function editarRol(Request $request){
+
+        if($request->isXmlHttpRequest())
+        {
+            $response = new JsonResponse();
+            $response->setStatusCode(200);
+            $response->setData(array(
+                'response' => 'success',
+            ));
+            return $response;
+        }
+
+        $response = new JsonResponse(array(
+            'message' => 'Invalid Request'),
+            400);
+
+        return $response;
+
     }
 
 }

@@ -27,13 +27,6 @@ class ProjectController extends Controller {
      */
     public function nuevoProyecto(Request $request){
 
-        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-
-            throw $this->createAccessDeniedException();
-
-        }
-
         $personasTemp = $this->getDoctrine()->getRepository(Persona::class)->findAll();
         $personas = array();
         $i = 0;
@@ -91,13 +84,6 @@ class ProjectController extends Controller {
      *
      */
     public function verProyecto(Request $request, $id_proyecto){
-
-        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-
-            throw $this->createAccessDeniedException();
-
-        }
 
         $proyecto = $this->getDoctrine()
                             ->getRepository(Proyecto::class)

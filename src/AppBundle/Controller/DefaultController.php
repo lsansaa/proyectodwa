@@ -20,15 +20,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 
-        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
-
         $persona = $this->getUser();
-
-        if(is_null($persona)){
-
-            return $this->redirect('/login');
-
-        }
 
         $feed = new Feed();
         $form = $this->createFormBuilder($feed)->getForm();
@@ -59,8 +51,6 @@ class DefaultController extends Controller
             return $this->render('default/index.html.twig',array('feeds'=>$feeds,'form'=>$form->createView(),'proyectos'=>$proyectos));
 
         }
-
-        return new Response("<html><h1>EN CONSTRUCCIÓN</h1></html>");
 
     }
 
