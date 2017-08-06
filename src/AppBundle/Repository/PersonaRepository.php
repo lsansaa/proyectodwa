@@ -4,7 +4,6 @@ namespace AppBundle\Repository;
 
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
@@ -45,6 +44,18 @@ class PersonaRepository extends EntityRepository implements UserLoaderInterface
 
         return $user;
     }
+
+    public function findOne(){
+
+        try {
+            $sql = $this->findAll();
+            return true;
+        } catch (NoResultException $e) {
+            return false;
+        }
+
+    }
+
 
     public function refreshUser(UserInterface $user)
     {

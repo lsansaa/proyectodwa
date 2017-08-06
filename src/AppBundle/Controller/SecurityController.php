@@ -30,7 +30,8 @@ class SecurityController extends Controller
 
         if(!is_null($this->getUser())){
 
-            return render('security/login.html.twig', array(
+            return $this->render('security/login.html.twig', array(
+                'last_username' => $lastUsername,
                 'error' => $error
             ));
 

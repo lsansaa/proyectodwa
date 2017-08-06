@@ -91,7 +91,7 @@ $( document ).ready(function() {
         var noSpaces = email.replace(/\s/g, "");
         if(noSpaces.length==0){
             var parent = $(this).parent();
-            parent.attr('class','input-group has-error');
+            parent.attr('class','input-group');
             this.setCustomValidity("");
         }else if(validarEmail(email)){
             var parent = $(this).parent();

@@ -76,7 +76,7 @@ class ProyectoTrabajadorController extends Controller {
 
         }
 
-        return $this->render('default/asignaciontrabajador.html.twig', array(
+        return $this->render('public/asignaciontrabajador.html.twig', array(
 
             'trabajadores' => $trabajadores,
             'idproyecto' => $id_proyecto,

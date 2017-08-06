@@ -73,7 +73,7 @@ class ProjectController extends Controller {
 
         }
 
-        return $this->render('default/nuevoproyecto.html.twig', array(
+        return $this->render('public/nuevoproyecto.html.twig', array(
             'form' => $form->createView()
         ));
 
@@ -103,7 +103,7 @@ class ProjectController extends Controller {
 
         //$trabajadoresproyecto = $this->getDoctrine()->getRepository(ProyectoTrabajador::class)
 
-        return $this->render('default/proyecto.html.twig', array(
+        return $this->render('public/proyecto.html.twig', array(
             'proyecto'=>$proyecto,
             'archivos'=>$archivos,
             'trabajadores'=>$trabajadores

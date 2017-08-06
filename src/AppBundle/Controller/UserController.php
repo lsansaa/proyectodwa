@@ -15,16 +15,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UserController extends Controller {
 
+
+
     /**
      * @Route("/usuarios/registro", name="user_registration")
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function registrarUsuario(Request $request,UserPasswordEncoderInterface $encoder){
 
@@ -60,12 +61,13 @@ class UserController extends Controller {
         }
 
         return $this->render(
-            'registration/register.html.twig',
+            'registration/registrar_usuario.html.twig',
             array('form' => $form->createView())
         );
     }
     /**
      * @Route("/usuarios/cambiar_contrasenia", name="cambiar_contrasenia")
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_USER')")
      */
     public function cambiarContrasenia(Request $request,UserPasswordEncoderInterface $encoder)
     {
@@ -76,7 +78,7 @@ class UserController extends Controller {
             ));
 
         //1) se cargar el form sin DataClass
-        $defaultData = array('default'=>'data');
+        $defaultData = array('public'=>'data');
         $form = $this->createFormBuilder($defaultData)
             ->add('old_password', PasswordType::class,
                 array('label' => 'Actual contraseña'))
@@ -121,6 +123,7 @@ class UserController extends Controller {
     }
     /**
      * @Route("/usuarios/editarroles", name="editar_roles")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editarRoles(Request $request){
 
@@ -144,6 +147,7 @@ class UserController extends Controller {
     }
     /**
      * @Route("/usuarios/editarrol", name="editar_rol")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editarRol(Request $request){
 

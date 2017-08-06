@@ -23,7 +23,7 @@ security:
 
                 # login success redirecting options (read further below)
                 always_use_default_target_path: false
-                default_target_path:            /welcomepage
+                default_target_path:            /index
                 target_path_parameter:          login_success
                 use_referer:                    false
 
@@ -31,7 +31,7 @@ security:
                 failure_forward: false
                 failure_path_parameter: login_fail
 
-                # by default, the login form *must* be a POST, not a GET
+                # by public, the login form *must* be a POST, not a GET
                 post_only:      true
                 remember_me:    false
 
@@ -41,9 +41,10 @@ security:
                 target: /
 
     access_control:
+        - { path: ^/registro  , roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
      #   - { path: ^/, roles: ROLE_USER}
-     #   - { path: ^/, roles: ROLE_ADMIN}
+        - { path: ^/admin, roles: ROLE_ADMIN}
 
     encoders:
       AppBundle\Entity\Persona: bcrypt
