@@ -9,7 +9,6 @@ $( document ).ready(function() {
         if(estadoEdicion == 0){
             var rolSpanId = "spanEditRol_"+rut;
             var rolSpanText = $("#"+rolSpanId).text();
-            console.log(rolSpanText);
             var roles = [
                 {val : "ROLE_USER", text: 'User'},
                 {val : "ROLE_ADMIN", text: 'Admin'}
@@ -27,15 +26,23 @@ $( document ).ready(function() {
             $(buttonSpan).attr('class','glyphicon glyphicon-ok');
             $(buttonSpan).text(' Guardar');
             $(this).attr('data-editing', '1');
-            $(this).attr('class', 'btnEditarRol btn-sm btn-primary');
+            $(this).attr('class', 'btnEditarRol btn btn-primary');
 
 
         }else{
             var rolSpanId = "spanEditRol_"+rut;
-            var rolSpanText = $("#"+rolSpanId).val();
 
-            var spanRol = $("<span>", { val: rolSpanText,
+            var rol = $("#"+rolSpanId).val();
+            var rolSpanText;
+
+            var spanRol = $("<span>", { val: rol,
                 id: rolSpanId});
+
+            if(rol =="ROLE_ADMIN"){
+                rolSpanText = "Admin";
+            }else{
+                rolSpanText = "User";
+            }
             spanRol.text(rolSpanText);
 
             $("#"+rolSpanId).replaceWith(spanRol);
@@ -44,8 +51,9 @@ $( document ).ready(function() {
             $(buttonSpan).text(' Editar Rol');
             $(this).attr('data-editing', '0');
             $(this).attr('class', '\'btnEditarRol btn-sm btn-link');
-
-            editarRol(rut, rolSpanText);
+            console.log(rut);
+            console.log(rol);
+            editarRol(rut, rol);
         }
 
 
@@ -83,7 +91,7 @@ function editarRol(rut, rol){
         type: "POST",
         url: "/usuarios/editarrol",
         dataType: "json",
-        data: {id: rut, rol: rol},
+        data: {rut: rut, rol: rol},
         success :  console.log("Cambios hechos")
     });
 }

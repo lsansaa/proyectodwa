@@ -23,7 +23,7 @@ security:
 
                 # login success redirecting options (read further below)
                 always_use_default_target_path: false
-                default_target_path:            /
+                default_target_path:            /welcomepage
                 target_path_parameter:          login_success
                 use_referer:                    false
 

@@ -12,6 +12,7 @@ use AppBundle\Entity\Persona;
 use AppBundle\Form\PersonaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
@@ -64,7 +65,7 @@ class UserController extends Controller {
         );
     }
     /**
-     * @Route("/usuarios/cambiar_contraseña", name="cambiar_contrasenia")
+     * @Route("/usuarios/cambiar_contrasenia", name="cambiar_contrasenia")
      */
     public function cambiarContrasenia(Request $request,UserPasswordEncoderInterface $encoder)
     {
@@ -96,7 +97,7 @@ class UserController extends Controller {
 //            if($verificar){
 //                $error = "Contraseña incorrecta, intente nuevamente";
 //                return $this->render(
-//                    'security/cambiar_contraseña.html.twig',
+//                    'security/cambiar_contrasenia.html.twig',
 //                    array('form' => $form->createView(),
 //                        'password_error' => $error)
 //                );
@@ -114,7 +115,7 @@ class UserController extends Controller {
         }
 
         return $this->render(
-            'security/cambiar_contraseña.html.twig',
+            'security/cambiar_contrasenia.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -148,6 +149,22 @@ class UserController extends Controller {
 
         if($request->isXmlHttpRequest())
         {
+            $rut = $request->request->get('rut');
+            $rol = $request->request->get('rol');
+
+            $usuario = $this->getDoctrine()
+                ->getRepository(Persona::class)
+                ->find(array(
+                    "rut"=>$rut
+                ));
+
+            $usuario->setRol($rol);
+
+            // 4) guardar el usuario
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($usuario);
+            $em->flush();
+
             $response = new JsonResponse();
             $response->setStatusCode(200);
             $response->setData(array(

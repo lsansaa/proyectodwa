@@ -14,10 +14,17 @@ use Doctrine\ORM\EntityRepository;
 
 class DefaultController extends Controller
 {
+
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request){
+        return $this->render('default/main.html.twig');
+    }
+    /**
+     * @Route("/welcomepage", name="welcome_page")
+     */
+    public function welcomeAction(Request $request)
     {
 
         $persona = $this->getUser();
