@@ -30,13 +30,6 @@ class ProyectoTrabajadorController extends Controller {
      */
     public function asignarTrabajador(Request $request, $id_proyecto){
 
-        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-
-            throw $this->createAccessDeniedException();
-
-        }
-
         $proyectotrabajador = new ProyectoTrabajador();
         $form = $this->createFormBuilder($proyectotrabajador)->getForm();
         $form->handleRequest($request);
@@ -83,7 +76,7 @@ class ProyectoTrabajadorController extends Controller {
 
         }
 
-        return $this->render('default/asignaciontrabajador.html.twig', array(
+        return $this->render('public/asignaciontrabajador.html.twig', array(
 
             'trabajadores' => $trabajadores,
             'idproyecto' => $id_proyecto,
@@ -92,22 +85,4 @@ class ProyectoTrabajadorController extends Controller {
         ));
 
     }
-
-    /**
-     * @Route("/proyectos/asignartrabajador/{id_proyecto}/{rut_trabajador}", name="asignar_trabajador2")
-     *
-     */
-    public function asignarTrabajador2(Request $request, $id_proyecto, $rut_trabajador){
-
-        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-
-            throw $this->createAccessDeniedException();
-
-        }
-
-        return new Response("<html><body><h1>Hola</h1></body></html>");
-
-    }
-
 }

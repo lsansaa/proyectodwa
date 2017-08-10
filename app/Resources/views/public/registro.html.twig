@@ -1,0 +1,114 @@
+{% extends "base2.html.twig" %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h1 class="title">Registro de usuario</h1>
+                    {% if error is defined and error is not empty %}
+                        <h3><span class="label label-danger">{{ error.message }}</span></h3>
+                    {% endif %}
+
+                </div>
+            </div>
+            {% block form_start -%}
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_errors(form.rut) }}
+                        <div class="input-group">
+                            <span class="input-group-addon">RUT</span>
+                            {{ form_widget(form.rut,{'attr': {
+                                'class': 'soloRut'}}) }}
+                            <span class="input-group-addon glyphicon glyphicon-user"> </span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-5">
+                        {{ form_errors(form.nombre) }}
+                        <div class="input-group">
+                            <span class="input-group-addon">Nombre</span>
+                            {{ form_widget(form.nombre,{'attr': {
+                                'class': 'soloTexto'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-5">
+                        {{ form_errors(form.apellido_paterno) }}
+                        <div class="input-group">
+                            <span class="input-group-addon">Apellido Paterno</span>
+                            {{ form_widget(form.apellido_paterno,{'attr': {
+                                'class': 'soloTexto'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        {{ form_errors(form.apellido_materno) }}
+                        <div class="input-group">
+                            <span class="input-group-addon">Apellido materno</span>
+                            {{ form_widget(form.apellido_materno,{'attr': {
+                                'class': 'soloTexto'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-5">
+                        {{ form_errors(form.email) }}
+                        <div class="input-group input-group">
+                            <span class="input-group-addon">Email</span>
+                            {{ form_widget(form.email,{'attr': {
+                                'aria-describedby': 'email-addon',
+                                'class': 'soloEmail'}}) }}
+                            <span class="input-group-addon addon-icon">@</span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_errors(form.plainPassword.first) }}
+                        <small id="password" class="form-text text-muted">
+                            Su contraseña de tener al menos 8 caracteres. con al menos 1 letra,
+                            1 número, 1 letra máyuscula, 1 letra minuscula y 1 caracter especial.
+                        </small>
+                        <div class="input-group">
+                            <span class="input-group-addon">Contraseña</span>
+                            {{ form_widget(form.plainPassword.first,{'attr': {
+                                'class': 'soloPassword'}}) }}
+                            <span class="input-group-addon glyphicon glyphicon-lock"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_errors(form.plainPassword.second) }}
+                        <div class="input-group">
+                            <span class="input-group-addon">Repita su contraseña</span>
+                            {{ form_widget(form.plainPassword.second,{'attr': {
+                                'class': 'soloPasswordRepetido'}}) }}
+                            <span class="input-group-addon glyphicon glyphicon-lock"> </span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    {% block button_widget -%}
+                        <div class="col-md-2 col-md-offset-5">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    {%- endblock %}
+                </div>
+                {{ form_end(form) }}
+            {%- endblock form_start %}
+        </div>
+    </div>
+{% endblock %}

@@ -5,8 +5,8 @@
             <div class="col-sm-6 col-sm-offset-3">
                 <center><h1>Asignación trabajador</h1></center>
                 <br><br>
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Búsqueda por Rut ...">
-                <table id="myTable" class="table table-striped">
+                <input type="text" id="myInput" class="busquedaNombreRut" data-table-id="myTable" placeholder="Búsqueda por Rut ...">
+                <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>Rut</th>
@@ -15,7 +15,7 @@
                         <th>Apellido materno</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="myTable">
                     {{ form_start(form) }}
                     {% for trabajador in trabajadores %}
                         <tr>
@@ -37,37 +37,4 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        function myFunction() {
-
-            // Declare variables
-            var input, filter, table, tr, td, i;
-
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-
-                td1 = tr[i].getElementsByTagName("td")[0]
-
-                if (td1) {
-
-                    if (td1.innerHTML.toUpperCase().indexOf(filter) <= -1) {
-
-                        tr[i].style.display = "none";
-
-                    } else {
-
-                        tr[i].style.display = "";
-
-                    }
-
-                }
-
-            }
-        }
-    </script>
 {% endblock %}

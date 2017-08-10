@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Bienvendo{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
@@ -17,9 +17,16 @@
         {% endblock %}
 
         <!-- Latest compiled and minified JavaScript -->
+        {% javascripts
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'
+            'https://cdn.jsdelivr.net/jquery.validation/1.17.0/jquery.validate.min.js'
+            '@AppBundle/Resources/js/validaciones.js'
+            '@AppBundle/Resources/js/publico.js'
+            '@AppBundle/Resources/js/*'
+        %}
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

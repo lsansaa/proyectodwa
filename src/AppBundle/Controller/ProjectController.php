@@ -27,13 +27,6 @@ class ProjectController extends Controller {
      */
     public function nuevoProyecto(Request $request){
 
-        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-
-            throw $this->createAccessDeniedException();
-
-        }
-
         $personasTemp = $this->getDoctrine()->getRepository(Persona::class)->findAll();
         $personas = array();
         $i = 0;
@@ -80,7 +73,7 @@ class ProjectController extends Controller {
 
         }
 
-        return $this->render('default/nuevoproyecto.html.twig', array(
+        return $this->render('public/nuevoproyecto.html.twig', array(
             'form' => $form->createView()
         ));
 
@@ -91,13 +84,6 @@ class ProjectController extends Controller {
      *
      */
     public function verProyecto(Request $request, $id_proyecto){
-
-        //Condicion de entrada a la ruta. Solo pueden acceder usuarios que se hayan autenticado
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-
-            throw $this->createAccessDeniedException();
-
-        }
 
         $proyecto = $this->getDoctrine()
                             ->getRepository(Proyecto::class)
@@ -117,7 +103,7 @@ class ProjectController extends Controller {
 
         //$trabajadoresproyecto = $this->getDoctrine()->getRepository(ProyectoTrabajador::class)
 
-        return $this->render('default/proyecto.html.twig', array(
+        return $this->render('public/proyecto.html.twig', array(
             'proyecto'=>$proyecto,
             'archivos'=>$archivos,
             'trabajadores'=>$trabajadores

@@ -5,12 +5,21 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Persona
  *
  * @ORM\Table(name="persona")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonaRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Este correo electrónico ya tiene una cuenta"
+ * )
+ * @UniqueEntity(
+ *     fields={"rut"},
+ *     message="Este RUT tiene una cuenta"
+ * )
  */
 class Persona implements AdvancedUserInterface, \Serializable
 {
@@ -45,13 +54,18 @@ class Persona implements AdvancedUserInterface, \Serializable
     /**
      * @var string
      * @Assert\Email()
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\Length(
+     *     min = 8,
+     *     max=4096,
+     *     minMessage="Su contraseña debe tener al menos {{ limit }} caracteres",
+     *     maxMessage="Su contraseña no puede tener más de {{ limit }} caracteres"
+     * )
      */
     private $plainPassword;
     /**
